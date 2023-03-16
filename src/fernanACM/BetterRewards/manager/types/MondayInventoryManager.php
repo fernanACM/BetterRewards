@@ -21,7 +21,7 @@ use fernanACM\BetterRewards\Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
 use pocketmine\utils\Config;
 
-class WednesdayInventoryManager extends InventoryManager{
+class MondayInventoryManager extends InventoryManager{
 
     /** @var array $menu */
     private static array $menu = [];
@@ -31,7 +31,7 @@ class WednesdayInventoryManager extends InventoryManager{
      */
     public static function getInvMenu(): InvMenu{
         $menu = InvMenu::create(InvMenuTypeIds::TYPE_CHEST);
-        $menu->setName("Wednesday inventory");
+        $menu->setName("Monday inventory");
         $menu->getInventory()->setContents(self::getContents());
         return $menu;
     }

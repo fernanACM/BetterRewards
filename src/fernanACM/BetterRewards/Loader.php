@@ -1,4 +1,13 @@
 <?php
+    
+#      _       ____   __  __ 
+#     / \     / ___| |  \/  |
+#    / _ \   | |     | |\/| |
+#   / ___ \  | |___  | |  | |
+#  /_/   \_\  \____| |_|  |_|
+# The creator of this plugin was fernanACM.
+# https://github.com/fernanACM
+
 namespace fernanACM\BetterRewards;
 
 use pocketmine\player\Player;
@@ -9,6 +18,9 @@ use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 # Libs
 use Vecnavium\FormsUI\FormsUI;
+
+use muqsit\invmenu\InvMenu;
+use muqsit\invmenu\InvMenuHandler;
 use muqsit\simplepackethandler\SimplePacketHandler;
 
 use CortexPE\Commando\BaseCommand;
@@ -73,6 +85,7 @@ class Loader extends PluginBase{
     public function loadFiles(): void{
         # Config files
         @mkdir($this->getDataFolder() . "languages");
+        @mkdir($this->getDataFolder() . "backup");
         $this->saveResource("config.yml");
         $this->config = new Config($this->getDataFolder() . "config.yml");
         # Languages
@@ -125,6 +138,7 @@ class Loader extends PluginBase{
     public function loadVirions(): void{
         foreach([
             "FormsUI" => FormsUI::class,
+            "InvMenu" => InvMenu::class,
             "SimplePacketHandler" => SimplePacketHandler::class,
             "Commando" => BaseCommand::class,
             "libPiggyUpdateChecker" => libPiggyUpdateChecker::class
@@ -139,6 +153,10 @@ class Loader extends PluginBase{
 
         if(!PacketHooker::isRegistered()){
             PacketHooker::register($this);
+        }
+
+        if(!InvMenuHandler::isRegistered()){
+            InvMenuHandler::register($this);
         }
     }
 

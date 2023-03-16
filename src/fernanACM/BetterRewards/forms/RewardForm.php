@@ -1,5 +1,13 @@
 <?php
 
+#      _       ____   __  __ 
+#     / \     / ___| |  \/  |
+#    / _ \   | |     | |\/| |
+#   / ___ \  | |___  | |  | |
+#  /_/   \_\  \____| |_|  |_|
+# The creator of this plugin was fernanACM.
+# https://github.com/fernanACM
+
 namespace fernanACM\BetterRewards\forms;
 
 use DateTime;
@@ -12,13 +20,20 @@ use fernanACM\BetterRewards\utils\CooldownUtils;
 
 class RewardForm{
 
+    # ====(Weekdays)====
     private const MONDAY = "Monday";
+    private const TUESDAY = "Tuesday";
+    private const WEDNESDAY = "Wednesday";
+    private const THURSDAY = "Thursday";
+    private const FRIDAY = "Friday";
+    private const SATURDAY = "Saturday";
+    private const SUNDAY = "Sunday";
 
     /**
      * @param Player $player
      * @return void
      */
-    public static function getReward(Player $player): void{
+    public static function getRewardDiary(Player $player): void{
         $now = new DateTime();
         $dayOfWeek = $now->format("l");
         $config = Loader::getInstance()->config;
@@ -42,7 +57,7 @@ class RewardForm{
                       }
                       // Add cooldown to player
                       CooldownUtils::addCooldown($player, self::MONDAY, 86400);
-                      // Eeceive reward
+                      // Receive reward
                 break;
 
                 case 1: // Tuesday
