@@ -19,9 +19,8 @@ use muqsit\invmenu\type\InvMenuTypeIds;
 
 use fernanACM\BetterRewards\Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
-use pocketmine\utils\Config;
 
-class TuesdayInventoryManager extends InventoryManager{
+class FridayInventoryManager extends InventoryManager{
 
     /** @var array $menu */
     private static array $menu = [];
@@ -31,7 +30,7 @@ class TuesdayInventoryManager extends InventoryManager{
      */
     public static function getInvMenu(): InvMenu{
         $menu = InvMenu::create(InvMenuTypeIds::TYPE_CHEST);
-        $menu->setName("Tuesday inventory");
+        $menu->setName("Thursday inventory");
         $menu->getInventory()->setContents(self::getContents());
         return $menu;
     }
@@ -81,20 +80,5 @@ class TuesdayInventoryManager extends InventoryManager{
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
         });
         $menu->send($player);
-    }
-
-    /**
-     * @return void
-     */
-    public static function saveTuesdayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/tuesdayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
     }
 }
