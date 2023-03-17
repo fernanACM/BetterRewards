@@ -12,6 +12,9 @@ namespace fernanACM\BetterRewards\manager\types;
 
 use pocketmine\player\Player;
 
+use pocketmine\utils\Config;
+
+use pocketmine\item\Item;
 use pocketmine\inventory\Inventory;
 
 use muqsit\invmenu\InvMenu;
@@ -19,7 +22,6 @@ use muqsit\invmenu\type\InvMenuTypeIds;
 
 use fernanACM\BetterRewards\Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
-use pocketmine\utils\Config;
 
 class TuesdayInventoryManager extends InventoryManager{
 
@@ -78,6 +80,7 @@ class TuesdayInventoryManager extends InventoryManager{
             }
             self::setContents($content);
             // backup
+            self::saveTuesdayInventory();
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
         });
         $menu->send($player);
@@ -96,5 +99,18 @@ class TuesdayInventoryManager extends InventoryManager{
         }
         $backup->setAll($place);
         $backup->save();
+    }
+
+    /**
+     * @return void
+     */
+    public static function loadTuesdayInventory(): void{
+        $inv = new Config(Loader::getInstance()->getDataFolder(). "backup/tuesdayInv.json");
+        $contents = [];
+        foreach($inv->getAll() as $content){
+            $item = Item::jsonDeserialize($content["item"]);
+            $contents[$content["slot"]] = $item;
+        }
+        self::setContents($contents);
     }
 }

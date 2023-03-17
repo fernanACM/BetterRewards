@@ -23,7 +23,7 @@ use muqsit\invmenu\type\InvMenuTypeIds;
 use fernanACM\BetterRewards\Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
 
-class MondayInventoryManager extends InventoryManager{
+class MonthlyInventoryManager extends InventoryManager{
 
     /** @var array $menu */
     private static array $menu = [];
@@ -33,7 +33,7 @@ class MondayInventoryManager extends InventoryManager{
      */
     public static function getInvMenu(): InvMenu{
         $menu = InvMenu::create(InvMenuTypeIds::TYPE_CHEST);
-        $menu->setName("Monday inventory");
+        $menu->setName("Monthly inventory");
         $menu->getInventory()->setContents(self::getContents());
         return $menu;
     }
@@ -80,7 +80,7 @@ class MondayInventoryManager extends InventoryManager{
             }
             self::setContents($content);
             // backup
-            self::saveMondayInventory();
+            self::saveMonthlyInventory();
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
         });
         $menu->send($player);
@@ -89,8 +89,8 @@ class MondayInventoryManager extends InventoryManager{
     /**
      * @return void
      */
-    public static function saveMondayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/mondayInv.json");
+    public static function saveMonthlyInventory(): void{
+        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/monthlyInv.json");
         $menu = MondayInventoryManager::getContents();
         $place = [];
         foreach($menu as $content => $item){
@@ -101,11 +101,12 @@ class MondayInventoryManager extends InventoryManager{
         $backup->save();
     }
 
+    
     /**
      * @return void
      */
-    public static function loadMondayInventory(): void{
-        $inv = new Config(Loader::getInstance()->getDataFolder(). "backup/mondayInv.json");
+    public static function loadMonthlyInventory(): void{
+        $inv = new Config(Loader::getInstance()->getDataFolder(). "backup/monthlyInv.json");
         $contents = [];
         foreach($inv->getAll() as $content){
             $item = Item::jsonDeserialize($content["item"]);

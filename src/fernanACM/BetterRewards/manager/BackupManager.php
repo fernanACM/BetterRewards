@@ -10,12 +10,14 @@
 
 namespace fernanACM\BetterRewards\manager;
 
-use pocketmine\utils\Config;
-
-use fernanACM\BetterRewards\Loader;
-
+use fernanACM\BetterRewards\manager\types\FridayInventoryManager;
 use fernanACM\BetterRewards\manager\types\MondayInventoryManager;
+use fernanACM\BetterRewards\manager\types\MonthlyInventoryManager;
+use fernanACM\BetterRewards\manager\types\SaturdayInventoryManager;
+use fernanACM\BetterRewards\manager\types\SundayInventoryManager;
+use fernanACM\BetterRewards\manager\types\ThursdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\TuesdayInventoryManager;
+use fernanACM\BetterRewards\manager\types\WednesdayInventoryManager;
 
 class BackupManager{
 
@@ -25,70 +27,25 @@ class BackupManager{
     public static function saveInventoryAll(): void{
         MondayInventoryManager::saveMondayInventory();
         TuesdayInventoryManager::saveTuesdayInventory();
-        self::saveWednesdayInventory();
-        self::saveThursdayInventory();
-        self::saveFridayInventory();
-        self::saveSaturdayInventory();
-        self::saveSundayInventory();
+        WednesdayInventoryManager::saveWednesdayInventory();
+        ThursdayInventoryManager::saveThursdayInventory();
+        FridayInventoryManager::saveFridayInventory();
+        SaturdayInventoryManager::saveSaturdayInventory();
+        SundayInventoryManager::saveSundayInventory();
+        MonthlyInventoryManager::saveMonthlyInventory();
     }
 
-    public static function saveWednesdayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/wednesdayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
-    }
-
-    public static function saveThursdayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/thursdayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
-    }
-
-    public static function saveFridayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/fridayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
-    }
-
-    public static function saveSaturdayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/saturdayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
-    }
-
-    public static function saveSundayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/sundayInv.json");
-        $menu = MondayInventoryManager::getContents();
-        $place = [];
-        foreach($menu as $content => $item){
-            $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
-        }
-        $backup->setAll($place);
-        $backup->save();
+    /**
+     * @return void
+     */
+    public static function loadInventoryAll(): void{
+        MondayInventoryManager::loadMondayInventory();
+        TuesdayInventoryManager::loadTuesdayInventory();
+        WednesdayInventoryManager::loadWednesdayInventory();
+        ThursdayInventoryManager::loadThursdayInventory();
+        FridayInventoryManager::loadFridayInventory();
+        SaturdayInventoryManager::loadSaturdayInventory();
+        SundayInventoryManager::loadSundayInventory();
+        MonthlyInventoryManager::loadMonthlyInventory();
     }
 }

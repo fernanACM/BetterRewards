@@ -27,8 +27,9 @@ use CortexPE\Commando\BaseCommand;
 use CortexPE\Commando\PacketHooker;
 
 use DaPigGuy\libPiggyUpdateChecker\libPiggyUpdateChecker;
-use fernanACM\BetterRewards\utils\CooldownUtils;
 # My files
+use fernanACM\BetterRewards\manager\BackupManager;
+use fernanACM\BetterRewards\utils\CooldownUtils;
 use fernanACM\BetterRewards\utils\PluginUtils;
 
 class Loader extends PluginBase{
@@ -70,6 +71,7 @@ class Loader extends PluginBase{
         $this->loadVirions();
         $this->loadCommands();
         CooldownUtils::loadCooldownsFromFile();
+        BackupManager::loadInventoryAll();
     }
 
     /**
@@ -77,6 +79,7 @@ class Loader extends PluginBase{
      */
     public function onDisable(): void{
         CooldownUtils::saveCooldownsToFile();
+        BackupManager::saveInventoryAll();
     }
 
     /**
