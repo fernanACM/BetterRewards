@@ -22,7 +22,7 @@ use fernanACM\BetterRewards\manager\InventoryManager;
 use pocketmine\utils\Config;
 
 class TuesdayInventoryManager extends InventoryManager{
-    
+
     /** @var array $menu */
     private static array $menu = [];
 
