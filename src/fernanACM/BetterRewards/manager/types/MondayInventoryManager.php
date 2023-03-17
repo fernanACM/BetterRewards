@@ -1,6 +1,14 @@
 <?php
+    
+#      _       ____   __  __ 
+#     / \     / ___| |  \/  |
+#    / _ \   | |     | |\/| |
+#   / ___ \  | |___  | |  | |
+#  /_/   \_\  \____| |_|  |_|
+# The creator of this plugin was fernanACM.
+# https://github.com/fernanACM
 
-namespace fernanACM\CofreMagico\manager\types;
+namespace fernanACM\BetterRewards\manager\types;
 
 use pocketmine\player\Player;
 
@@ -11,6 +19,7 @@ use muqsit\invmenu\type\InvMenuTypeIds;
 
 use fernanACM\BetterRewards\Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
+use pocketmine\utils\Config;
 
 class MondayInventoryManager extends InventoryManager{
 
@@ -69,8 +78,24 @@ class MondayInventoryManager extends InventoryManager{
             }
             self::setContents($content);
             // backup
+            self::saveMondayInventory();
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
         });
         $menu->send($player);
+    }
+
+    /**
+     * @return void
+     */
+    public static function saveMondayInventory(): void{
+        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/mondayInv.json");
+        $menu = MondayInventoryManager::getContents();
+        $place = [];
+        foreach($menu as $content => $item){
+            $place[$content]["slot"] = $content;
+            $place[$content]["item"] = $item->jsonSerialize();
+        }
+        $backup->setAll($place);
+        $backup->save();
     }
 }
