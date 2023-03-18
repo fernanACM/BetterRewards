@@ -101,7 +101,10 @@ class Loader extends PluginBase{
             $data = [];
             file_put_contents($this->getDataFolder() . "cooldowns.json", json_encode($data));
         }
-        # Time zone
+        # (Time zone)
+        # It is recommended to set it to "false" to avoid 
+        # time functions on your server. If your server is 
+        # focused on your country, go ahead with the change of time zone.
         # Use: https://www.php.net/manual/en/timezones.php
         date_default_timezone_set($this->config->getNested("Time-zone"));
     }
