@@ -21,15 +21,6 @@ use fernanACM\BetterRewards\utils\CooldownUtils;
 use fernanACM\BetterRewards\utils\PluginUtils;
 use fernanACM\BetterRewards\utils\RewardModeUtils;
 
-use fernanACM\BetterRewards\manager\types\FridayInventoryManager;
-use fernanACM\BetterRewards\manager\types\MondayInventoryManager;
-use fernanACM\BetterRewards\manager\types\MonthlyInventoryManager;
-use fernanACM\BetterRewards\manager\types\SaturdayInventoryManager;
-use fernanACM\BetterRewards\manager\types\SundayInventoryManager;
-use fernanACM\BetterRewards\manager\types\ThursdayInventoryManager;
-use fernanACM\BetterRewards\manager\types\TuesdayInventoryManager;
-use fernanACM\BetterRewards\manager\types\WednesdayInventoryManager;
-
 class RewardForm{
 
     # ====(Weekdays)====
@@ -40,6 +31,8 @@ class RewardForm{
     private const FRIDAY = "Friday";
     private const SATURDAY = "Saturday";
     private const SUNDAY = "Sunday";
+    # ====(Monthly)====
+    private const MONTHLY = "Monthly";
 
     /**
      * @param Player $player
@@ -188,8 +181,54 @@ class RewardForm{
                 break;
 
                 case 7: // close
+                    PluginUtils::PlaySound($player, "random.pop2", 1, 4.1);
                 break;
             }
         });
+        $form->setTitle(Loader::getMessage($player, "RewardForm.Diary.title"));
+        $form->setContent(Loader::getMessage($player, "RewardForm.Diary.content"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-monday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-tuesday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-wednesday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-thursday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-friday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-saturday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-sunday"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-close"));
+        $player->sendForm($form);
+    }
+
+    /**
+     * @param Player $player
+     * @return void
+     */
+    public static function getRewardMonthly(Player $player): void{
+        $form = new SimpleForm(function(Player $player, $data){
+            if($data === null){
+                return true;
+                switch($data){
+                    case 0: // Reward
+                        // Cooldown
+                        if(CooldownUtils::hasCooldown($player, self::MONTHLY)){
+                            $cooldoown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
+                            $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
+                            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                            return true;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendMonthlyInventoryCustom($player);
+                    break;
+
+                    case 1: // close
+                        PluginUtils::PlaySound($player, "random.pop2", 1, 4.1);
+                    break;
+                }
+            }
+        });
+        $form->setTitle(Loader::getMessage($player, "RewardForm.Monthly.title"));
+        $form->setContent(Loader::getMessage($player, "RewardForm.Monthly.content"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-reward"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-close"));
+        $player->sendForm($form);
     }
 }

@@ -35,4 +35,9 @@ abstract class InventoryManager{
      * @return void
      */
     abstract public static function sendEditContent(Player $player): void;
+
+    /**
+     * @return int
+     */
+    abstract public static function getNumContents(): int;
 }

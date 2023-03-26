@@ -10,6 +10,7 @@
 
 namespace fernanACM\BetterRewards;
 
+use pocketmine\Server;
 use pocketmine\player\Player;
 
 use pocketmine\plugin\PluginBase;
@@ -28,6 +29,8 @@ use CortexPE\Commando\PacketHooker;
 
 use DaPigGuy\libPiggyUpdateChecker\libPiggyUpdateChecker;
 # My files
+use fernanACM\BetterRewards\commands\RewardCommand;
+
 use fernanACM\BetterRewards\manager\BackupManager;
 use fernanACM\BetterRewards\utils\CooldownUtils;
 use fernanACM\BetterRewards\utils\PluginUtils;
@@ -58,6 +61,9 @@ class Loader extends PluginBase{
         "vie" // Vietnamese
     ];
 
+    /**
+     * @return void
+     */
     public function onLoad(): void{
         self::$instance = $this;
     }
@@ -113,8 +119,6 @@ class Loader extends PluginBase{
      * @return void
      */
     public function loadCheck(): void{
-        # Update
-        libPiggyUpdateChecker::init($this);
         # CONFIG
         if((!$this->config->exists("config-version")) || ($this->config->get("config-version") != self::CONFIG_VERSION)){
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");
@@ -134,8 +138,11 @@ class Loader extends PluginBase{
         }
     }
 
+    /**
+     * @return void
+     */
     public function loadCommands(): void{
-
+        Server::getInstance()->getCommandMap()->register("betterrewards", new RewardCommand());
     }
 
     /**
@@ -164,6 +171,8 @@ class Loader extends PluginBase{
         if(!InvMenuHandler::isRegistered()){
             InvMenuHandler::register($this);
         }
+        # Update
+        libPiggyUpdateChecker::init($this);
     }
 
     /**

@@ -55,6 +55,13 @@ class SundayInventoryManager extends InventoryManager{
     }
 
     /**
+     * @return int
+     */
+    public static function getNumContents(): int{
+        return count(self::$menu);
+    }
+
+    /**
      * @param int $amount
      * @return array
      */

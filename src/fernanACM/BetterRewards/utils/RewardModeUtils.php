@@ -30,6 +30,7 @@ use fernanACM\BetterRewards\manager\types\WednesdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\MonthlyInventoryManager;
 
 class RewardModeUtils{
+    
     # ====(Weekdays)====
     private const MONDAY = "Monday";
     private const TUESDAY = "Tuesday";
@@ -38,6 +39,8 @@ class RewardModeUtils{
     private const FRIDAY = "Friday";
     private const SATURDAY = "Saturday";
     private const SUNDAY = "Sunday";
+    # ====(Monthly)====
+    private const MONTHLY = "Monthly";
 
     /**
      * That is only for Mondays
@@ -47,9 +50,9 @@ class RewardModeUtils{
      */
     public static function sendMondayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = MondayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.monday-items"));
+                $inventory = MondayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.monday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -66,7 +69,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::MONDAY);
+                self::sendNormalWeeklyReward($player, self::MONDAY);
             break;
         }
     }
@@ -79,9 +82,9 @@ class RewardModeUtils{
      */
     public static function sendTuesdayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = TuesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.tuesday-items"));
+                $inventory = TuesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.tuesday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -98,7 +101,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::TUESDAY);
+                self::sendNormalWeeklyReward($player, self::TUESDAY);
             break;
         }
     }
@@ -111,9 +114,9 @@ class RewardModeUtils{
      */
     public static function sendWednesdayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = WednesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.wednesday-items"));
+                $inventory = WednesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.wednesday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -130,7 +133,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::WEDNESDAY);
+                self::sendNormalWeeklyReward($player, self::WEDNESDAY);
             break;
         }
     }
@@ -143,9 +146,9 @@ class RewardModeUtils{
      */
     public static function sendThursdayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = ThursdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.thursdayy-items"));
+                $inventory = ThursdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.thursdayy-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -162,7 +165,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::THURSDAY);
+                self::sendNormalWeeklyReward($player, self::THURSDAY);
             break;
         }
     }
@@ -175,9 +178,9 @@ class RewardModeUtils{
      */
     public static function sendFridayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = FridayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.friday-items"));
+                $inventory = FridayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.friday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -194,7 +197,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::FRIDAY);
+                self::sendNormalWeeklyReward($player, self::FRIDAY);
             break;
         }
     }
@@ -207,9 +210,9 @@ class RewardModeUtils{
      */
     public static function sendSaturdayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = SaturdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.saturday-items"));
+                $inventory = SaturdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.saturday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -226,7 +229,7 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::SATURDAY);
+                self::sendNormalWeeklyReward($player, self::SATURDAY);
             break;
         }
     }
@@ -239,9 +242,9 @@ class RewardModeUtils{
      */
     public static function sendSundayInventoryCustom(Player $player): void{
         $config = Loader::getInstance()->config;
-        switch($config->getNested("Settings.inventory.inventory-custom")){
+        switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = SundayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.sunday-items"));
+                $inventory = SundayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.sunday-items-to-receive"));
                 foreach($inventory as $item){
                     if(!$player->getInventory()->canAddItem($item)){
                         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -258,7 +261,39 @@ class RewardModeUtils{
             break;
 
             case false:
-                self::sendNormalReward($player, self::SUNDAY);
+                self::sendNormalWeeklyReward($player, self::SUNDAY);
+            break;
+        }
+    }
+
+    /**
+     * This is a monthly reward
+     * 
+     * @param Player $player
+     * @return void
+     */
+    public static function sendMonthlyInventoryCustom(Player $player): void{
+        $config = Loader::getInstance()->config;
+        switch($config->getNested("Settings.inventory.custom-inventory")){
+            case true:
+                $inventory = MonthlyInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.monthly-items-to-receive"));
+                foreach($inventory as $item){
+                    if(!$player->getInventory()->canAddItem($item)){
+                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                        return;
+                    }
+                    // Receive reward
+                    $player->getInventory()->addItem($item);
+                    RewardUtils::sendMonthlyCommandReward($player);
+                    CooldownUtils::addCooldown($player, self::MONTHLY, 2592000);
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
+                }
+            break;
+
+            case false:
+                self::sendNormalMonthlyReward($player, self::MONTHLY);
             break;
         }
     }
@@ -268,7 +303,7 @@ class RewardModeUtils{
      * @param string $id
      * @return void
      */
-    public static function sendNormalReward(Player $player, string $id): void{
+    public static function sendNormalWeeklyReward(Player $player, string $id): void{
         $item = RewardUtils::sendWeeklytems();
         if(!$player->getInventory()->canAddItem($item)){
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
@@ -276,8 +311,27 @@ class RewardModeUtils{
             return;
         }
         $player->getInventory()->addItem($item);
-        RewardUtils::sendMondayCommandReward($player);
+        RewardUtils::sendWeeklyCommandReward($player);
         CooldownUtils::addCooldown($player, $id, 86400);
+        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+        PluginUtils::PlaySound($player, "random.levelup", 1, 1);
+    }
+
+    /**
+     * @param Player $player
+     * @param string $id
+     * @return void
+     */
+    public static function sendNormalMonthlyReward(Player $player, string $id): void{
+        $item = RewardUtils::sendMonthlyItems();
+        if(!$player->getInventory()->canAddItem($item)){
+            $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+            return;
+        }
+        $player->getInventory()->addItem($item);
+        RewardUtils::sendMonthlyCommandReward($player);
+        CooldownUtils::addCooldown($player, $id, 2592000);
         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
         PluginUtils::PlaySound($player, "random.levelup", 1, 1);
     }

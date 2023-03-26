@@ -109,6 +109,16 @@ class RewardUtils{
         $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
     }
 
+    /**
+     * @param Player $player
+     * @return void
+     */
+    public static function sendWeeklyCommandReward(Player $player): void{
+        $server = Server::getInstance();
+        $command = Loader::getInstance()->config->getNested("Reward.weekly-commands");
+        $command = str_replace("{PLAYER}", $player->getName(), $command);
+        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+    }
     # ====(MONTHLY)====
     /**
      * @param Player $player
