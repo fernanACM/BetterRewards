@@ -20,6 +20,7 @@ use pocketmine\utils\TextFormat;
 use pocketmine\console\ConsoleCommandSender;
 
 use pocketmine\item\Item;
+use pocketmine\item\VanillaItems;
 use pocketmine\item\LegacyStringToItemParser;
 use pocketmine\item\StringToItemParser;
 
@@ -37,9 +38,11 @@ class RewardUtils{
      */
     public static function sendMondayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.monday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.monday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -48,9 +51,11 @@ class RewardUtils{
      */
     public static function sendTuesdayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.tuesday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.tuesday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -59,9 +64,11 @@ class RewardUtils{
      */
     public static function sendWednesdayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.wednesday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.wednesday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
 
     }
 
@@ -71,9 +78,11 @@ class RewardUtils{
      */
     public static function sendThursdayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.thursday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.thursday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -82,9 +91,11 @@ class RewardUtils{
      */
     public static function sendFridayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.friday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.friday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -93,9 +104,11 @@ class RewardUtils{
      */
     public static function sendSaturdayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.saturday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.saturday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -104,9 +117,11 @@ class RewardUtils{
      */
     public static function sendSundayCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.sunday-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.sunday-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -115,9 +130,11 @@ class RewardUtils{
      */
     public static function sendWeeklyCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.weekly-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.weekly-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
     # ====(MONTHLY)====
     /**
@@ -126,9 +143,11 @@ class RewardUtils{
      */
     public static function sendMonthlyCommandReward(Player $player): void{
         $server = Server::getInstance();
-        $command = Loader::getInstance()->config->getNested("Reward.monthly-commands");
-        $command = str_replace("{PLAYER}", $player->getName(), $command);
-        $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        $commands = Loader::getInstance()->config->getNested("Reward.monthly-commands");
+        foreach($commands as $command){
+            $command = str_replace("{PLAYER}", $player->getName(), $command);
+            $server->dispatchCommand(new ConsoleCommandSender($server, $server->getLanguage()), $command);
+        }
     }
 
     /**
@@ -137,11 +156,11 @@ class RewardUtils{
     public static function sendWeeklytems(): Item{
         $config = Loader::getInstance()->config;
         $reward = $config->getNested("Reward.weekly-normal-content");
+        $itemObject = VanillaItems::AIR();
         if(isset($reward["items"])){
             foreach($reward["items"] as $item){
-                $itemExplode = explode("/", $item["item"]);
                 $itemObject = StringToItemParser::getInstance()->parse($item["item"]) ?? LegacyStringToItemParser::getInstance()->parse($item["item"]);
-                $itemObject->setCount((int)$itemExplode[0] ?? 1);
+                $itemObject->setCount((int)$item["count"] ?? 1);
             }
             if(isset($item["name"])){
                 $itemObject->setCustomName(TextFormat::colorize($item['name']));
@@ -171,11 +190,11 @@ class RewardUtils{
     public static function sendMonthlyItems(): Item{
         $config = Loader::getInstance()->config;
         $reward = $config->getNested("Reward.monthly-normal-content");
+        $itemObject = VanillaItems::AIR();
         if(isset($reward["items"])){
             foreach($reward["items"] as $item){
-                $itemExplode = explode("/", $item["item"]);
                 $itemObject = StringToItemParser::getInstance()->parse($item["item"]) ?? LegacyStringToItemParser::getInstance()->parse($item["item"]);
-                $itemObject->setCount((int)$itemExplode[0] ?? 1);
+                $itemObject->setCount((int)$item["count"] ?? 1);
             }
             if(isset($item["name"])){
                 $itemObject->setCustomName(TextFormat::colorize($item['name']));

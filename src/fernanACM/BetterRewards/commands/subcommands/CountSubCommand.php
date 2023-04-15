@@ -49,7 +49,7 @@ class CountSubCommand extends BaseSubCommand{
      * @return void
      */
     protected function prepare(): void{
-        $this->registerArgument(0, new RawStringArgument("type", true));    
+        $this->registerArgument(0, new RawStringArgument("type"));    
     }
 
     /**
@@ -71,17 +71,13 @@ class CountSubCommand extends BaseSubCommand{
         }
 
         if(!isset($args["type"])){
-            if(Loader::getInstance()->getInstance()->config->getNested("Settings.inventory.custom-inventory")){
-                $sender->sendMessage(Loader::Prefix(). "§cUse: /modos count <type>");
-                PluginUtils::PlaySound($sender, "mob.villager.no", 1, 1);
-            }else{
-                $sender->sendMessage(Loader::Prefix(). Loader::getMessage($sender, "Messages.custom-inventory-not-activated"));
-                PluginUtils::PlaySound($sender, "mob.villager.no", 1, 1);
-            }
+            $sender->sendMessage(Loader::Prefix(). "§cUse: /betterrewards count <type>");
+            PluginUtils::PlaySound($sender, "mob.villager.no", 1, 1);
+            return;
         }
-        
+
         if(!$this->isAvailable($args["type"])){
-            $sender->sendMessage(Loader::Prefix(). "§cThe mode§b ".$args[1]." §cit's not valid.");
+            $sender->sendMessage(Loader::Prefix(). "§cThe mode§b ".$args["type"]." §cit's not valid.");
             $sender->sendMessage("§l§9List of valid modes:");
             foreach(self::getModos() as $modes){
                 $sender->sendMessage(" - §a" . $modes);

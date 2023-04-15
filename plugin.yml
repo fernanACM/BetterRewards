@@ -11,3 +11,5 @@ permissions:
     default: true
   betterrewards.edit.acm:
     default: op
+  betterrewards.monthly.acm:
+    default: true

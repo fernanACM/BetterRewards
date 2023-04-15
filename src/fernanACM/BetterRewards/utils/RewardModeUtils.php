@@ -52,20 +52,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = MondayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.monday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.monday-items-to-receive");
+                $inventory = MondayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendMondayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::MONDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendMondayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::MONDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -84,20 +86,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = TuesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.tuesday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.tuesday-items-to-receive");
+                $inventory = TuesdayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::TUESDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendTuesdayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::TUESDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -116,20 +120,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = WednesdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.wednesday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.wednesday-items-to-receive");
+                $inventory = WednesdayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::WEDNESDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendWednesdayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::WEDNESDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -148,20 +154,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = ThursdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.thursdayy-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.thursdayy-items-to-receive");
+                $inventory = ThursdayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::THURSDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendThursdayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::THURSDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -180,20 +188,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = FridayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.friday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.friday-items-to-receive");
+                $inventory = FridayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::FRIDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendFridayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::FRIDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -212,20 +222,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = SaturdayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.saturday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.saturday-items-to-receive");
+                $inventory = SaturdayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::SATURDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendSaturdayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::SATURDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -244,20 +256,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = SundayInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.sunday-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.sunday-items-to-receive");
+                $inventory = SundayInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendTuesdayCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::SUNDAY, 86400);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendSundayCommandReward($player);
+                CooldownUtils::addCooldown($player, self::SUNDAY, 86400);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:
@@ -276,20 +290,22 @@ class RewardModeUtils{
         $config = Loader::getInstance()->config;
         switch($config->getNested("Settings.inventory.custom-inventory")){
             case true:
-                $inventory = MonthlyInventoryManager::getRandomItems((int)$config->getNested("Settings.inventory.monthly-items-to-receive"));
+                $itemsToReceive = (int)$config->getNested("Settings.inventory.monthly-items-to-receive");
+                $inventory = MonthlyInventoryManager::getRandomItems($itemsToReceive);
+                $freeSlots = $player->getInventory()->getSize() - count($player->getInventory()->getContents());
+                if($freeSlots < $itemsToReceive){
+                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                    PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                    return;
+                }
                 foreach($inventory as $item){
-                    if(!$player->getInventory()->canAddItem($item)){
-                        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
                     // Receive reward
                     $player->getInventory()->addItem($item);
-                    RewardUtils::sendMonthlyCommandReward($player);
-                    CooldownUtils::addCooldown($player, self::MONTHLY, 2592000);
-                    $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
-                    PluginUtils::PlaySound($player, "random.levelup", 1, 1);
                 }
+                RewardUtils::sendMonthlyCommandReward($player);
+                CooldownUtils::addCooldown($player, self::MONTHLY, 2592000);
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
+                PluginUtils::PlaySound($player, "random.levelup", 1, 1);
             break;
 
             case false:

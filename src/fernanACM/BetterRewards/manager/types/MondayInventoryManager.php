@@ -68,6 +68,9 @@ class MondayInventoryManager extends InventoryManager{
     public static function getRandomItems(int $amount): array{
         $menu = self::getContents();
         $items = [];
+        if(empty($menu)){
+            return $items;
+        }
         for($i = 0; $i < $amount; $i++){
             $items[] = $menu[array_rand($menu)];
         }

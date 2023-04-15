@@ -85,27 +85,27 @@ class CooldownUtils {
         $output = "";
         if($years > 0){
             $time = str_replace(["{YEAR}"], [$years], $config->getNested("TimeMode.years"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         if($months > 0){
             $time = str_replace(["{MONTH}"], [$months], $config->getNested("TimeMode.months"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         if($days > 0){
             $time = str_replace(["{DAY}"], [$days], $config->getNested("TimeMode.days"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         if($hours > 0){
             $time = str_replace(["{HOUR}"], [$hours], $config->getNested("TimeMode.hours"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         if($minutes > 0) {
             $time = str_replace(["{MINUTE}"], [$minutes], $config->getNested("TimeMode.minutes"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         if($seconds > 0){
             $time = str_replace(["{SECOND}"], [$seconds], $config->getNested("TimeMode.seconds"));
-            $output .= $time."\n";
+            $output .= $time." ";
         }
         return trim($output);
     }    

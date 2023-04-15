@@ -67,7 +67,8 @@ Reward:
 
   # weekly-normal-content:
   #   items:
-  #     - item: "diamond/32"
+  #     - item: "diamond"
+  #       count: 23
   #       name: "A diamond!"
   #       lore:
   #         - "This diamond is very valuable"
@@ -78,7 +79,8 @@ Reward:
   #
   # // It also works like this
   # 
-  #     - item: "1:0/16"
+  #     - item: "1:0"
+  #       count: 32
   #       name: "A stone!"
   #       lore: []
   #       enchantments:

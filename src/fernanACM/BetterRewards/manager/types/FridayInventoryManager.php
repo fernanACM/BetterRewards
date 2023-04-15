@@ -68,6 +68,9 @@ class FridayInventoryManager extends InventoryManager{
     public static function getRandomItems(int $amount): array{
         $menu = self::getContents();
         $items = [];
+        if(empty($menu)){
+            return $items;
+        }
         for($i = 0; $i < $amount; $i++){
             $items[] = $menu[array_rand($menu)];
         }
@@ -97,7 +100,7 @@ class FridayInventoryManager extends InventoryManager{
      */
     public static function saveFridayInventory(): void{
         $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/fridayInv.json");
-        $menu = MondayInventoryManager::getContents();
+        $menu = FridayInventoryManager::getContents();
         $place = [];
         foreach($menu as $content => $item){
             $place[$content]["slot"] = $content;
