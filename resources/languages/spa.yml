@@ -1,0 +1,39 @@
+#  ____           _     _                   ____                                         _       
+# | __ )    ___  | |_  | |_    ___   _ __  |  _ \    ___  __      __   __ _   _ __    __| |  ___ 
+# |  _ \   / _ \ | __| | __|  / _ \ | '__| | |_) |  / _ \ \ \ /\ / /  / _` | | '__|  / _` | / __|
+# | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
+# |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
+#        by fernanAcM
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+
+# NO TOCAR
+language-version: "1.0.0"
+
+RewardForm:
+  Diary:
+    title: "&l&9BetterRewards"
+    content: "&eReclama tus recompensas diarias:"
+    button-monday: "&l&2LUNES{LINE}&0Haz clic para reclamar tu recompensa"
+    button-tuesday: "&l&2MARTES{LINE}&0Haz clic para reclamar tu recompensa"
+    button-wednesday: "&l&2MIÉRCOLES{LINE}&0Haz clic para reclamar tu recompensa"
+    button-thursday: "&l&2JUEVES{LINE}&0Haz clic para reclamar tu recompensa"
+    button-friday: "&l&2VIERNES{LINE}&0Haz clic para reclamar tu recompensa"
+    button-saturday: "&l&2SÁBADO{LINE}&0Haz clic para reclamar tu recompensa"
+    button-sunday: "&l&2DOMINGO{LINE}&0Haz clic para reclamar tu recompensa"
+    button-close: "&l&4Cerrar menú{LINE}&0Haz clic para cerrar"
+
+  Monthly:
+    title: "&l&9BetterRewards"
+    content: "&eReclama tus recompensas mensuales:"
+    button-reward: "&l&2RECOMPENSA MENSUAL{LINE}&0Haz clic para reclamar tu recompensa"
+    button-close: "&l&4Cerrar menú{LINE}&0Haz clic para cerrar"
+
+Messages:
+  # Usa esta llave {TIME} para ver el tiempo de cooldown que tienes
+  you-have-cooldown: "&cReclama tu recompensa en:&b {TIME}"
+  the-day-does-not-correspond: "&c¡No puedes reclamar esta recompensa, ya que no es el día correspondiente!"
+  inventory-full: "&c¡Tu inventario está demasiado lleno para recibir tu recompensa! Espacio libre."
+  reward-received: "&a¡Has recibido tu recompensa con éxito!"
+  no-permission: "&c¡No tienes permisos para este comando!"
+  custom-inventory-not-activated: "&cNo puedes usar esta opción, ya que el inventario personalizado está desactivado."
+  inventory-saved-successfully: "&a¡El contenido del inventario se ha guardado correctamente!"

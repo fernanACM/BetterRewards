@@ -49,7 +49,7 @@ class CountSubCommand extends BaseSubCommand{
      * @return void
      */
     protected function prepare(): void{
-        $this->registerArgument(0, new RawStringArgument("type"));    
+        $this->registerArgument(0, new RawStringArgument("type", true));    
     }
 
     /**

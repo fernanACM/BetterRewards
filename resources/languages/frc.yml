@@ -1,0 +1,39 @@
+#  ____           _     _                   ____                                         _       
+# | __ )    ___  | |_  | |_    ___   _ __  |  _ \    ___  __      __   __ _   _ __    __| |  ___ 
+# |  _ \   / _ \ | __| | __|  / _ \ | '__| | |_) |  / _ \ \ \ /\ / /  / _` | | '__|  / _` | / __|
+# | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
+# |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
+#        by fernanAcM
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+
+# NE PAS TOUCHER
+language-version: "1.0.0"
+
+RewardForm:
+  Diary:
+    title: "&l&9BetterRewards"
+    content: "&eRéclamez vos récompenses quotidiennes :"
+    button-monday: "&l&2LUNDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-tuesday: "&l&2MARDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-wednesday: "&l&2MERCREDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-thursday: "&l&2JEUDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-friday: "&l&2VENDREDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-saturday: "&l&2SAMEDI{LINE}&0Cliquez pour réclamer votre récompense"
+    button-sunday: "&l&2DIMANCHE{LINE}&0Cliquez pour réclamer votre récompense"
+    button-close: "&l&4Fermer le menu{LINE}&0Cliquez pour fermer"
+
+  Monthly:
+    title: "&l&9BetterRewards"
+    content: "&eRéclamez vos récompenses mensuelles :"
+    button-reward: "&l&2RÉCOMPENSE MENSUELLE{LINE}&0Cliquez pour réclamer votre récompense"
+    button-close: "&l&4Fermer le menu{LINE}&0Cliquez pour fermer"
+
+Messages:
+  # Utilisez cette clé {TIME} pour voir le temps de recharge que vous avez
+  you-have-cooldown: "&cRéclamez votre récompense dans :&b {TIME}"
+  the-day-does-not-correspond: "&cVous ne pouvez pas réclamer cette récompense, car ce n'est pas le jour correspondant !"
+  inventory-full: "&cVotre inventaire est trop plein pour recevoir votre récompense ! Espace libre."
+  reward-received: "&aVous avez reçu votre récompense avec succès !"
+  no-permission: "&cVous n'avez pas les autorisations pour cette commande !"
+  custom-inventory-not-activated: "&cVous ne pouvez pas utiliser cette option, car l'inventaire personnalisé est désactivé."
+  inventory-saved-successfully: "&aLe contenu de l'inventaire a été enregistré avec succès !"
