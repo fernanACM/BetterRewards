@@ -10,6 +10,13 @@
 language-version: "1.0.0"
 
 RewardForm:
+  General:
+    title: "&l&9BetterRewards"
+    content: "&eChọn loại phần thưởng:"
+    button-diary: "&bPhần thưởng hàng ngày{LINE}Nhấp chuột"
+    button-monthly: "&bPhần thưởng hàng tháng{LINE}Nhấp chuột"
+    button-close: "&l&4Đóng menu{LINE}&0Nhấp chuột để đóng"
+
   Diary:
     title: "&l&9BetterRewards"
     content: "&eNhận phần thưởng hàng ngày của bạn:"

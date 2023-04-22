@@ -10,8 +10,16 @@
 language-version: "1.0.0"
 
 RewardForm:
+  General:
+    title: "&l&9BetterRewards"
+    content: "&eWählen Sie den Belohnungstyp aus:"
+    button-diary: "&bTägliche Belohnungen{LINE}Klicken"
+    button-monthly: "&bMonatliche Belohnungen{LINE}Klicken"
+    button-close: "&l&4Menü schließen{LINE}&0Klicken Sie zum Schließen"
+
+  
   Diary:
-    title: "&l&9Bessere Belohnungen"
+    title: "&l&9BetterRewards"
     content: "&eFordere deine täglichen Belohnungen an:"
     button-monday: "&l&2MONTAG{LINE}&0Klicke, um deine Belohnung zu erhalten"
     button-tuesday: "&l&2DIENSTAG{LINE}&0Klicke, um deine Belohnung zu erhalten"
@@ -21,8 +29,9 @@ RewardForm:
     button-saturday: "&l&2SAMSTAG{LINE}&0Klicke, um deine Belohnung zu erhalten"
     button-sunday: "&l&2SONNTAG{LINE}&0Klicke, um deine Belohnung zu erhalten"
     button-close: "&l&4Menü schließen{LINE}&0Klicke, um zu schließen"
+
   Monthly:
-    title: "&l&9Bessere Belohnungen"
+    title: "&l&9BetterRewards"
     content: "&eFordere deine monatlichen Belohnungen an:"
     button-reward: "&l&2MONATLICHE BELÖHNUNG{LINE}&0Klicke, um deine Belohnung zu erhalten"
     button-close: "&l&4Menü schließen{LINE}&0Klicke, um zu schließen"

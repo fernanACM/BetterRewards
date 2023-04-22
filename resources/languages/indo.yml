@@ -10,6 +10,13 @@
 language-version: "1.0.0"
 
 RewardForm:
+  General:
+    title: "&l&9BetterRewards"
+    content: "&ePilih jenis hadiah:"
+    button-diary: "&bHadiah harian{LINE}Klik"
+    button-monthly: "&bHadiah bulanan{LINE}Klik"
+    button-close: "&l&4Tutup menu{LINE}&0Klik untuk menutup"
+
   Diary:
     title: "&l&9BetterRewards"
     content: "&eKlaim hadiah harianmu:"

@@ -10,6 +10,13 @@
 language-version: "1.0.0"
 
 RewardForm:
+  General:
+    title: "&l&9BetterRewards"
+    content: "&eSelecione o tipo de recompensa:"
+    button-diary: "&bRecompensas diárias{LINE}Clique"
+    button-monthly: "&bRecompensas mensais{LINE}Clique"
+    button-close: "&l&4Fechar menu{LINE}&0Clique para fechar"
+
   Diary:
     title: "&l&9BetterRewards"
     content: "&eReivindique suas recompensas diárias:"

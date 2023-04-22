@@ -187,14 +187,14 @@ class RewardForm{
         });
         $form->setTitle(Loader::getMessage($player, "RewardForm.Diary.title"));
         $form->setContent(Loader::getMessage($player, "RewardForm.Diary.content"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-monday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-tuesday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-wednesday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-thursday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-friday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-saturday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-sunday"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-close"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-monday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-tuesday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-wednesday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-thursday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-friday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-saturday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-sunday"),1,"https://i.imgur.com/8xiDoTC.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Diary.button-close"),0,"textures/ui/cancel");
         $player->sendForm($form);
     }
 
@@ -206,29 +206,29 @@ class RewardForm{
         $form = new SimpleForm(function(Player $player, $data){
             if($data === null){
                 return true;
-                switch($data){
-                    case 0: // Reward
-                        // Cooldown
-                        if(CooldownUtils::hasCooldown($player, self::MONTHLY)){
-                            $cooldoown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
-                            $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                            return true;
-                        }
-                        // Receive reward
-                        RewardModeUtils::sendMonthlyInventoryCustom($player);
-                    break;
+            }
+            switch($data){
+                case 0: // Reward
+                    // Cooldown
+                    if(CooldownUtils::hasCooldown($player, self::MONTHLY)){
+                        $cooldoown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
+                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
+                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                        return true;
+                    }
+                    // Receive reward
+                    RewardModeUtils::sendMonthlyInventoryCustom($player);
+                break;
 
-                    case 1: // close
-                        PluginUtils::PlaySound($player, "random.pop2", 1, 4.1);
-                    break;
-                }
+                case 1: // close
+                    PluginUtils::PlaySound($player, "random.pop2", 1, 4.1);
+                break;
             }
         });
         $form->setTitle(Loader::getMessage($player, "RewardForm.Monthly.title"));
         $form->setContent(Loader::getMessage($player, "RewardForm.Monthly.content"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-reward"));
-        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-close"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-reward"),1,"https://i.imgur.com/hXsKLCT.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.Monthly.button-close"),0,"textures/ui/cancel");
         $player->sendForm($form);
     }
 }

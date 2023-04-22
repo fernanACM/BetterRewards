@@ -135,7 +135,7 @@ class EditSubCommand extends BaseSubCommand{
         $form->addButton("Saturday inventory");
         $form->addButton("Sunday inventory");
         $form->addButton("Monthly inventory");
-        $form->addButton("close menu");
+        $form->addButton("close menu",0,"textures/ui/cancel");
         $player->sendForm($form);
     }
 }
