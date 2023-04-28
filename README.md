@@ -181,21 +181,51 @@ TimeMode:
   seconds: "{SECOND} second(s)"
 ```
 
+### 🦴 Item in config.yml
+```yml
+# Example:
+# weekly-normal-content:
+#  items:
+#    - item: "id"
+#        count: 16
+#        name: "Name for the item"
+#        lore:
+#          - "Lore for the item"
+#          - "fernanACM"
+#        enchantments:
+#          - "enchantment:level"
+
+weekly-normal-content:
+  items:
+    - item: "1:0"
+      count: 16
+      name: "A stone!"
+      lore: []
+      enchantments:
+      - "protection:3"
+    - item: "wood"
+      count: 1
+      name: "A plank of wood"
+      lore: []
+      enchantments: []
+```
+
 ### 🕹 Commands
 | Command | Description |
 |---------|-------------|
-| /betterrewards | Open the main menu |
-| /betterrewards diary | Open daily rewards menu |
-| /betterrewards monthly | Open monthly rewards menu |
-| /betterrewards edit | Open inventory editing menu |
-| /betterrewards count | Count inventory items |
-****
+| ```/betterrewards``` | Open the main menu |
+| ```/betterrewards diary``` | Open daily rewards menu |
+| ```/betterrewards monthly``` | Open monthly rewards menu |
+| ```/betterrewards edit``` | Open inventory editing menu |
+| ```/betterrewards count``` | Count inventory items |
 
 ### 🔒 Permissions
-- Executing the command: ```betterrewards.cmd.acm:```
-- Diary: ```betterrewards.diary.acm```
-- Monthly: ```betterrewards.monthly.acm```
-- Edit: ```betterrewards.edit.acm```
+| Permission | Description |
+|---------|-------------|
+| ```betterrewards.cmd.acm:``` | Executing the command |
+| ```betterrewards.diary.acm``` | Diary |
+| ```betterrewards.monthly.acm``` | Monthly |
+| ```betterrewards.edit.acm``` | Edit |
 
 ### 📞 Contact 
 | Redes | Tag | Link |
@@ -204,7 +234,6 @@ TimeMode:
 | Discord | fernanACM#5078 | [Discord](https://discord.gg/YyE9XFckqb) |
 | GitHub | fernanACM | [GitHub](https://github.com/fernanACM)
 | Poggit | fernanACM | [Poggit](https://poggit.pmmp.io/ci/fernanACM)
-****
 
 ### ✔ Credits
 | Authors | Github | Lib |
@@ -213,4 +242,3 @@ TimeMode:
 | CortexPE | [CortexPE](https://github.com/CortexPE) | [Commando](https://github.com/CortexPE/Commando/tree/master/) |
 | Muqsit | [Muqsit](https://github.com/Muqsit) | [SimplePacketHandler](https://github.com/Muqsit/SimplePacketHandler) |
 | DaPigGuy | [DaPigGuy](https://github.com/DaPigGuy) | [libPiggyUpdateChecker](https://github.com/DaPigGuy/libPiggyUpdateChecker) |
-****
