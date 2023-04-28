@@ -1,2 +1,216 @@
 # BetterRewards
-Daily rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+
+[![](https://poggit.pmmp.io/shield.state/BetterRewards)](https://poggit.pmmp.io/p/BetterRewards)
+
+[![](https://poggit.pmmp.io/shield.api/BetterRewards)](https://poggit.pmmp.io/p/BetterRewards)
+
+Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+
+![Captura de pantalla 2023-04-28 161916](https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png)
+<a href="https://discord.gg/YyE9XFckqb"><img src="https://img.shields.io/discord/837701868649709568?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
+
+### 📸 Images
+**Main menu**
+<img src="https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png">
+
+**Daily rewards menu**
+<img src="https://user-images.githubusercontent.com/83558341/235257867-2a3d8bc4-f368-4963-af7d-cccfd4e7c5f5.png">
+
+**Monthly rewards menu**
+<img src="https://user-images.githubusercontent.com/83558341/235257958-f69b1079-0c59-4186-a92a-da7ea68875d0.png">
+
+**Inventory editing menu**
+<img src="https://user-images.githubusercontent.com/83558341/235258138-f1711b7c-9a96-4913-b5b7-092a375b49f3.png">
+
+
+
+### 💡 Implementations
+* [X] Multilanguage
+* [X] Configuration.
+* [X] Cooldown
+* [X] Commands
+* [X] Save item information
+
+### 💾 Config
+```yaml
+#  ____           _     _                   ____                                         _       
+# | __ )    ___  | |_  | |_    ___   _ __  |  _ \    ___  __      __   __ _   _ __    __| |  ___ 
+# |  _ \   / _ \ | __| | __|  / _ \ | '__| | |_) |  / _ \ \ \ /\ / /  / _` | | '__|  / _` | / __|
+# | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
+# |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
+#        by fernanAcM
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+
+# DO NOT TOUCH
+config-version: "1.0.0"
+
+# Languages
+# "eng", // English
+# "spa", // Spanish
+# "ger", // German
+# "frc", // French
+# "indo", // Indonesian
+# "portg", // Portuguese
+# "vie" // Vietnamese
+language: eng
+
+# Prefix plugin
+Prefix: "&l&f[&bBetterRewards&f]&8»&r "
+
+# Settings for daily and monthly rewards.
+Reward:
+  # Here are the rewards with commands, you can add 
+  # as many as you can.
+  # Use {PLAYER} to identify the player
+
+  # (Rewards for custom inventories)
+  # Only works if the (custom-inventory) option 
+  # is enabled. But if not, implement the commands in: 
+  # weekly-normal-content: []
+  monday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} iron_sword 1"
+  tuesday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} iron_pickaxe 1"
+  wednesday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} diamond_sword 1"
+  thursday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} stone 12"
+  friday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} wool 13"
+  saturday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} iron_block 1"
+  sunday-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} book 1"
+
+  # (General rewards)
+  weekly-commands:
+    - "give {PLAYER} golden_apple 4"
+    - "give {PLAYER} stone 12"
+  monthly-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} diamond 33"
+  # This for rewards with custom items.
+  # It only works if the (custom-inventory) option is disabled.
+  # Follow this example for custom items:
+  
+  # ONLY WORKS WITH THESE:
+  # weekly-normal-content []
+  # monthly-normal-content: []
+
+  # weekly-normal-content:
+  #   items:
+  #     - item: "diamond"
+  #       count: 23
+  #       name: "A diamond!"
+  #       lore:
+  #         - "This diamond is very valuable"
+  #         - "Careful not to lose it!"
+  #       enchantments:
+  #         - "sharpness:3"
+  #         - "fire_aspect:1"
+  #
+  # // It also works like this
+  # 
+  #     - item: "1:0"
+  #       count: 32
+  #       name: "A stone!"
+  #       lore: []
+  #       enchantments:
+  #         - "protection:3"
+  weekly-normal-content:
+    items:
+      - item: "1:0"
+        count: 16
+        name: "A stone!"
+        lore: []
+        enchantments:
+          - "protection:3"
+  monthly-normal-content:
+    items:
+      - item: "1:0"
+        count: 16
+        name: "A stone!"
+        lore: []
+        enchantments:
+          - "protection:3"
+
+Settings:
+  inventory:
+    # With this enabled, you will be able to customize 
+    # your inventory for a weekly or monthly reward. Use /betterrewards edit
+    custom-inventory: false
+    # Here you can put the items to receive your daily and 
+    # monthly reward. It only works if the (custom-inventory) option is enabled.
+
+    # RECOMMENDATION:
+    # If you put 3 and you have 10 items in the custom inventory, you will only receive 3 random 
+    # items that are in the inventory, if you want them to have all the items, put the number of 
+    # items that are in the custom inventory.
+
+    # You can put /betterrewards count <inventory type>
+    monday-items-to-receive: 4
+    tuesday-items-to-receive: 2
+    wednesday-items-to-receive: 4
+    thursday-items-to-receive: 5
+    friday-items-to-receive: 1
+    saturday-items-to-receive: 6
+    sunday-items-to-receive: 5
+
+    monthly-items-to-receive: 5
+
+# (Time zone)
+# It is recommended to set it to "UTC" to avoid 
+# time functions on your server. If your server is 
+# focused on your country, go ahead with the change of time zone.
+# Use: https://www.php.net/manual/en/timezones.php
+Time-zone: "UTC"
+
+TimeMode:
+  years: "{YEAR} year(s)"
+  months: "{MONTH} month(s)"
+  days: "{DAY} day(s)"
+  hours: "{HOUR} hour(s)"
+  minutes: "{MINUTE} minute(s)"
+  seconds: "{SECOND} second(s)"
+```
+
+### 🕹 Commands
+| Command | Description |
+|---------|-------------|
+| /betterrewards | Open the main menu |
+| /betterrewards diary | Open daily rewards menu |
+| /betterrewards monthly | Open monthly rewards menu |
+| /betterrewards edit | Open inventory editing menu |
+| /betterrewards count | Count inventory items |
+****
+
+### 🔒 Permissions
+- Executing the command: ```betterrewards.cmd.acm:```
+- Diary: ```betterrewards.diary.acm```
+- Monthly: ```betterrewards.monthly.acm```
+- Edit: ```betterrewards.edit.acm```
+
+### 📞 Contact 
+| Redes | Tag | Link |
+|-------|-------------|------|
+| YouTube | fernanACM | [YouTube](https://www.youtube.com/channel/UC-M5iTrCItYQBg5GMuX5ySw) | 
+| Discord | fernanACM#5078 | [Discord](https://discord.gg/YyE9XFckqb) |
+| GitHub | fernanACM | [GitHub](https://github.com/fernanACM)
+| Poggit | fernanACM | [Poggit](https://poggit.pmmp.io/ci/fernanACM)
+****
+
+### ✔ Credits
+| Authors | Github | Lib |
+|---------|--------|-----|
+| Vecnavium | [Vecnavium](https://github.com/Vecnavium) | [FormsUI](https://github.com/Vecnavium/FormsUI/tree/master/) |
+| CortexPE | [CortexPE](https://github.com/CortexPE) | [Commando](https://github.com/CortexPE/Commando/tree/master/) |
+| Muqsit | [Muqsit](https://github.com/Muqsit) | [SimplePacketHandler](https://github.com/Muqsit/SimplePacketHandler) |
+| DaPigGuy | [DaPigGuy](https://github.com/DaPigGuy) | [libPiggyUpdateChecker](https://github.com/DaPigGuy/libPiggyUpdateChecker) |
+****
