@@ -320,13 +320,15 @@ class RewardModeUtils{
      * @return void
      */
     public static function sendNormalWeeklyReward(Player $player, string $id): void{
-        $item = RewardUtils::sendWeeklytems();
-        if(!$player->getInventory()->canAddItem($item)){
-            $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-            return;
+        $items = RewardUtils::sendWeeklytems();
+        foreach($items as $item){
+            if(!$player->getInventory()->canAddItem($item)){
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                return;
+            }
+            $player->getInventory()->addItem($item);
         }
-        $player->getInventory()->addItem($item);
         RewardUtils::sendWeeklyCommandReward($player);
         CooldownUtils::addCooldown($player, $id, 86400);
         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));
@@ -339,13 +341,15 @@ class RewardModeUtils{
      * @return void
      */
     public static function sendNormalMonthlyReward(Player $player, string $id): void{
-        $item = RewardUtils::sendMonthlyItems();
-        if(!$player->getInventory()->canAddItem($item)){
-            $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
-            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-            return;
+        $items = RewardUtils::sendMonthlyItems();
+        foreach($items as $item){
+            if(!$player->getInventory()->canAddItem($item)){
+                $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-full"));
+                PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+                return;
+            }
+            $player->getInventory()->addItem($item);
         }
-        $player->getInventory()->addItem($item);
         RewardUtils::sendMonthlyCommandReward($player);
         CooldownUtils::addCooldown($player, $id, 2592000);
         $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.reward-received"));

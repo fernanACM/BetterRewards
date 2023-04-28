@@ -19,7 +19,6 @@ use pocketmine\utils\TextFormat;
 
 use pocketmine\console\ConsoleCommandSender;
 
-use pocketmine\item\Item;
 use pocketmine\item\VanillaItems;
 use pocketmine\item\LegacyStringToItemParser;
 use pocketmine\item\StringToItemParser;
@@ -151,70 +150,74 @@ class RewardUtils{
     }
 
     /**
-     * @return Item
+     * @return array
      */
-    public static function sendWeeklytems(): Item{
+    public static function sendWeeklytems(): array{
         $config = Loader::getInstance()->config;
         $reward = $config->getNested("Reward.weekly-normal-content");
         $itemObject = VanillaItems::AIR();
+        $items = [];
         if(isset($reward["items"])){
             foreach($reward["items"] as $item){
                 $itemObject = StringToItemParser::getInstance()->parse($item["item"]) ?? LegacyStringToItemParser::getInstance()->parse($item["item"]);
                 $itemObject->setCount((int)$item["count"] ?? 1);
-            }
-            if(isset($item["name"])){
-                $itemObject->setCustomName(TextFormat::colorize($item['name']));
-            }
-            if(isset($item["lore"])){
-                $itemObject->setLore(array_map(function($lore){
-                  return TextFormat::colorize($lore);
-                }, $item["lore"]));
-            }
-            if(isset($item["enchantments"])){
-                foreach($item["enchantments"] as $enchantmentString) {
-                  $enchantExplode = explode(":", $enchantmentString);
-                  $enchantId = $enchantExplode[0];
-                  $enchantLevel = (int)$enchantExplode[1];
-                  $enchantment = StringToEnchantmentParser::getInstance()->parse($enchantId);
-                  $enchantInstance = new EnchantmentInstance($enchantment, $enchantLevel ?? 1);
-                  $itemObject->addEnchantment($enchantInstance);
+                if(isset($item["name"])){
+                    $itemObject->setCustomName(TextFormat::colorize($item['name']));
                 }
+                if(isset($item["lore"])){
+                    $itemObject->setLore(array_map(function($lore){
+                        return TextFormat::colorize($lore);
+                    }, $item["lore"]));
+                }
+                if(isset($item["enchantments"])){
+                    foreach ($item["enchantments"] as $enchantmentString){
+                        $enchantExplode = explode(":", $enchantmentString);
+                        $enchantId = $enchantExplode[0];
+                        $enchantLevel = (int)$enchantExplode[1];
+                        $enchantment = StringToEnchantmentParser::getInstance()->parse($enchantId);
+                        $enchantInstance = new EnchantmentInstance($enchantment, $enchantLevel ?? 1);
+                        $itemObject->addEnchantment($enchantInstance);
+                    }
+                }
+                $items[] = $itemObject;
             }
         }
-        return $itemObject;
+        return $items;
     }
 
     /**
-     * @return Item
+     * @return array
      */
-    public static function sendMonthlyItems(): Item{
+    public static function sendMonthlyItems(): array{
         $config = Loader::getInstance()->config;
         $reward = $config->getNested("Reward.monthly-normal-content");
         $itemObject = VanillaItems::AIR();
+        $items = [];
         if(isset($reward["items"])){
             foreach($reward["items"] as $item){
                 $itemObject = StringToItemParser::getInstance()->parse($item["item"]) ?? LegacyStringToItemParser::getInstance()->parse($item["item"]);
                 $itemObject->setCount((int)$item["count"] ?? 1);
-            }
-            if(isset($item["name"])){
-                $itemObject->setCustomName(TextFormat::colorize($item['name']));
-            }
-            if(isset($item["lore"])){
-                $itemObject->setLore(array_map(function($lore){
-                  return TextFormat::colorize($lore);
-                }, $item["lore"]));
-            }
-            if(isset($item["enchantments"])){
-                foreach($item["enchantments"] as $enchantmentString) {
-                  $enchantExplode = explode(":", $enchantmentString);
-                  $enchantId = $enchantExplode[0];
-                  $enchantLevel = (int)$enchantExplode[1];
-                  $enchantment = StringToEnchantmentParser::getInstance()->parse($enchantId);
-                  $enchantInstance = new EnchantmentInstance($enchantment, $enchantLevel ?? 1);
-                  $itemObject->addEnchantment($enchantInstance);
+                if(isset($item["name"])){
+                    $itemObject->setCustomName(TextFormat::colorize($item['name']));
                 }
+                if(isset($item["lore"])){
+                    $itemObject->setLore(array_map(function($lore){
+                        return TextFormat::colorize($lore);
+                    }, $item["lore"]));
+                }
+                if(isset($item["enchantments"])){
+                    foreach ($item["enchantments"] as $enchantmentString){
+                        $enchantExplode = explode(":", $enchantmentString);
+                        $enchantId = $enchantExplode[0];
+                        $enchantLevel = (int)$enchantExplode[1];
+                        $enchantment = StringToEnchantmentParser::getInstance()->parse($enchantId);
+                        $enchantInstance = new EnchantmentInstance($enchantment, $enchantLevel ?? 1);
+                        $itemObject->addEnchantment($enchantInstance);
+                    }
+                }
+                $items[] = $itemObject;
             }
         }
-        return $itemObject;
+        return $items;
     }
 }

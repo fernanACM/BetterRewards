@@ -55,8 +55,12 @@ Reward:
     - "give {PLAYER} book 1"
 
   # (General rewards)
-  weekly-commands: []
-  monthly-commands: []
+  weekly-commands:
+    - "give {PLAYER} golden_apple 4"
+    - "give {PLAYER} stone 12"
+  monthly-commands:
+    - "give {PLAYER} apple 24"
+    - "give {PLAYER} diamond 33"
   # This for rewards with custom items.
   # It only works if the (custom-inventory) option is disabled.
   # Follow this example for custom items:
@@ -85,9 +89,22 @@ Reward:
   #       lore: []
   #       enchantments:
   #         - "protection:3"
-  weekly-normal-content: []
-  monthly-normal-content: []
-
+  weekly-normal-content:
+    items:
+      - item: "1:0"
+        count: 16
+        name: "A stone!"
+        lore: []
+        enchantments:
+          - "protection:3"
+  monthly-normal-content:
+    items:
+      - item: "1:0"
+        count: 16
+        name: "A stone!"
+        lore: []
+        enchantments:
+          - "protection:3"
 
 Settings:
   inventory:

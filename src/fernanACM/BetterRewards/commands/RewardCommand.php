@@ -8,6 +8,8 @@ use pocketmine\command\CommandSender;
 
 use CortexPE\Commando\BaseCommand;
 
+use Vecnavium\FormsUI\SimpleForm;
+
 use fernanACM\BetterRewards\commands\subcommands\CountSubCommand;
 use fernanACM\BetterRewards\commands\subcommands\EditSubCommand;
 use fernanACM\BetterRewards\commands\subcommands\DiarySubCommand;
@@ -16,7 +18,6 @@ use fernanACM\BetterRewards\commands\subcommands\MonthlySubCommand;
 use fernanACM\BetterRewards\forms\RewardForm;
 use fernanACM\BetterRewards\utils\PluginUtils;
 use fernanACM\BetterRewards\Loader;
-use Vecnavium\FormsUI\SimpleForm;
 
 class RewardCommand extends BaseCommand{
 

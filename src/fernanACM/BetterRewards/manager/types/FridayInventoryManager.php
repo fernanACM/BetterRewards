@@ -90,6 +90,7 @@ class FridayInventoryManager extends InventoryManager{
             }
             self::setContents($content);
             // backup
+            self::saveFridayInventory();
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
         });
         $menu->send($player);
