@@ -227,6 +227,17 @@ weekly-normal-content:
 | ```betterrewards.monthly.acm``` | Monthly |
 | ```betterrewards.edit.acm``` | Edit |
 
+### 🌐 MultiLanguage
+| Language | Translated by |
+|----------|---------------|
+| English | [fernanACM](https://github.com/fernanACM) |
+| Spanish | [fernanACM](https://github.com/fernanACM) |
+| Indonesian | BetterRewards |
+| German | [GamerMJay](https://github.com/GamerMJay) |
+| French | BetterRewards |
+| Portuguese | BetterRewards |
+| Vietnamese | [NhanAZ](https://github.com/NhanAZ) |
+
 ### 📞 Contact 
 | Redes | Tag | Link |
 |-------|-------------|------|
@@ -241,4 +252,5 @@ weekly-normal-content:
 | Vecnavium | [Vecnavium](https://github.com/Vecnavium) | [FormsUI](https://github.com/Vecnavium/FormsUI/tree/master/) |
 | CortexPE | [CortexPE](https://github.com/CortexPE) | [Commando](https://github.com/CortexPE/Commando/tree/master/) |
 | Muqsit | [Muqsit](https://github.com/Muqsit) | [SimplePacketHandler](https://github.com/Muqsit/SimplePacketHandler) |
+| Muqsit | [Muqsit](https://github.com/Muqsit) | [InvMenu](https://github.com/Muqsit/InvMenu) |
 | DaPigGuy | [DaPigGuy](https://github.com/DaPigGuy) | [libPiggyUpdateChecker](https://github.com/DaPigGuy/libPiggyUpdateChecker) |
