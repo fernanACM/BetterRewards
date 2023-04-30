@@ -33,7 +33,7 @@ class FridayInventoryManager extends InventoryManager{
      */
     public static function getInvMenu(): InvMenu{
         $menu = InvMenu::create(InvMenuTypeIds::TYPE_CHEST);
-        $menu->setName("Thursday inventory");
+        $menu->setName("Friday inventory");
         $menu->getInventory()->setContents(self::getContents());
         return $menu;
     }

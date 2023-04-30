@@ -104,6 +104,7 @@ Reward:
   # weekly-normal-content []
   # monthly-normal-content: []
 
+  # NOTE: Use "&" as a replacement for the minecraft color code
   # weekly-normal-content:
   #   items:
   #     - item: "diamond"
@@ -128,7 +129,7 @@ Reward:
     items:
       - item: "1:0"
         count: 16
-        name: "A stone!"
+        name: "&r&cA stone!"
         lore: []
         enchantments:
           - "protection:3"
@@ -136,7 +137,7 @@ Reward:
     items:
       - item: "1:0"
         count: 16
-        name: "A stone!"
+        name: "&r&aA stone!"
         lore: []
         enchantments:
           - "protection:3"
@@ -199,13 +200,13 @@ weekly-normal-content:
   items:
     - item: "1:0"
       count: 16
-      name: "A stone!"
+      name: "&r&cA stone!"
       lore: []
       enchantments:
       - "protection:3"
     - item: "wood"
       count: 1
-      name: "A plank of wood"
+      name: "&r&eA plank of wood"
       lore: []
       enchantments: []
 ```
