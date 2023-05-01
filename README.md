@@ -29,6 +29,7 @@ Daily and monthly rewards, depending on the day of the week. Available for Pocke
 * [X] Configuration.
 * [X] Cooldown
 * [X] Commands
+* [X] inventory editor
 * [X] Save item information
 
 ### 💾 Config
