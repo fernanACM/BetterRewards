@@ -1,0 +1,26 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/fernanACM/BetterRewards
+build-by-default: true
+branches:
+- PM4
+projects:
+  BetterRewards:
+    path: ""
+    icon: "icon-btrewards.png"
+    libs:
+      - src: Vecnavium/FormsUI/FormsUI
+        version: ^1.0.0
+      - src: muqsit/InvMenu/InvMenu
+        version: ^4.5.1
+        branch: "4.0"
+      - src: muqsit/simplepackethandler/SimplePacketHandler
+        version: ^0.1.2
+        branch: "master"
+      - src: DaPigGuy/libPiggyUpdateChecker/libPiggyUpdateChecker
+        version: ^1.0.0
+        branch: "master"
+      - src: CortexPE/Commando/Commando
+        version:  ^3.0.0
+        branch: PM4
+    lint:
+      phpstan: false
+...
