@@ -11,6 +11,7 @@ Daily and monthly rewards, depending on the day of the week. With these rewards 
 
 ### 📸 Images
 > Here I leave a tutorial of the plugin: [BetterRewards](https://youtu.be/HAAUUf719Ec)
+
 **Main menu**
 > You can choose the type of reward you want to receive
 <img src="https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png">
