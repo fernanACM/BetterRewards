@@ -131,13 +131,6 @@ Settings:
 
     monthly-items-to-receive: 5
 
-# (Time zone)
-# It is recommended to set it to "UTC" to avoid 
-# time functions on your server. If your server is 
-# focused on your country, go ahead with the change of time zone.
-# Use: https://www.php.net/manual/en/timezones.php
-Time-zone: "UTC"
-
 TimeMode:
   years: "{YEAR} year(s)"
   months: "{MONTH} month(s)"
