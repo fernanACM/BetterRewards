@@ -4,22 +4,26 @@
 
 [![](https://poggit.pmmp.io/shield.api/BetterRewards)](https://poggit.pmmp.io/p/BetterRewards)
 
-Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+Daily and monthly rewards, depending on the day of the week. With these rewards you can make your server one of the most fun. Available for PocketMine-MP 4.0 servers
 
 ![Captura de pantalla 2023-04-28 161916](https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png)
 <a href="https://discord.gg/YyE9XFckqb"><img src="https://img.shields.io/discord/837701868649709568?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
 
 ### 📸 Images
 **Main menu**
+> You can choose the type of reward you want to receive
 <img src="https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png">
 
 **Daily rewards menu**
+> Select the day of the week to receive your reward with just one click
 <img src="https://user-images.githubusercontent.com/83558341/235257867-2a3d8bc4-f368-4963-af7d-cccfd4e7c5f5.png">
 
 **Monthly rewards menu**
+> Receive your monthly reward with this menu
 <img src="https://user-images.githubusercontent.com/83558341/235257958-f69b1079-0c59-4186-a92a-da7ea68875d0.png">
 
 **Inventory editing menu**
+> Here you can edit the inventory of the objects to receive. It will only work when the ```custom-inventory``` option is ```true```.
 <img src="https://user-images.githubusercontent.com/83558341/235258138-f1711b7c-9a96-4913-b5b7-092a375b49f3.png">
 
 
@@ -167,13 +171,6 @@ Settings:
 
     monthly-items-to-receive: 5
 
-# (Time zone)
-# It is recommended to set it to "UTC" to avoid 
-# time functions on your server. If your server is 
-# focused on your country, go ahead with the change of time zone.
-# Use: https://www.php.net/manual/en/timezones.php
-Time-zone: "UTC"
-
 TimeMode:
   years: "{YEAR} year(s)"
   months: "{MONTH} month(s)"
@@ -184,6 +181,7 @@ TimeMode:
 ```
 
 ### 🦴 Item in config.yml
+> Create items from here, this will work if the option: ```custom-inventory``` is set to ```false```.
 ```yml
 # Example:
 # weekly-normal-content:
