@@ -16,10 +16,11 @@ use pocketmine\player\Player;
 
 use pocketmine\utils\TextFormat;
 
+use pocketmine\network\mcpe\NetworkBroadcastUtils;
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 use pocketmine\network\mcpe\protocol\OnScreenTextureAnimationPacket;
 
-class PluginUtils {
+class PluginUtils{
 
     /**
      * @param Player $player
@@ -56,7 +57,7 @@ class PluginUtils {
         $packet->volume = $volume;
         $packet->pitch = $pitch;
         $world = $position->getWorld();
-        $world->getServer()->broadcastPackets($world->getPlayers(), [$packet]);
+        NetworkBroadcastUtils::broadcastPackets($world->getPlayers(), [$packet]);
     }
 
     /**

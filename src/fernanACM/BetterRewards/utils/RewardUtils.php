@@ -26,7 +26,7 @@ use pocketmine\item\StringToItemParser;
 use pocketmine\item\enchantment\EnchantmentInstance;
 use pocketmine\item\enchantment\StringToEnchantmentParser;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 
 class RewardUtils{
 
@@ -219,5 +219,30 @@ class RewardUtils{
             }
         }
         return $items;
+    }
+
+    /**
+     * @param Player $player
+     * @param array $allowedDays
+     * @param string $configDayPath
+     * @param string $cooldownKey
+     * @return boolean
+     */
+    public static function getChecker(Player $player, array $allowedDays, string $configDayPath, string $cooldownKey): bool{
+        $config = Loader::getInstance()->config;
+        $dayOfWeek = date("l");
+        $day = $config->getNested("Days.{$configDayPath}");
+        if(!in_array($dayOfWeek, $allowedDays)){
+            $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
+            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+            return true;
+        }
+        if(CooldownUtils::hasCooldown($player, $cooldownKey)){
+            $cooldown = CooldownUtils::getRemainingTime($player, $cooldownKey);
+            $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldown], Loader::getMessage($player, "Messages.you-have-cooldown")));
+            PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
+            return true;
+        }
+        return false;
     }
 }

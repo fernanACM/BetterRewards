@@ -4,10 +4,10 @@
 # | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
 # |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
 #        by fernanAcM
-# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 5.0 servers
 
 # NO TOCAR
-language-version: "1.0.0"
+language-version: "2.0.0"
 
 RewardForm:
   General:
@@ -38,7 +38,8 @@ RewardForm:
 Messages:
   # Usa esta llave {TIME} para ver el tiempo de cooldown que tienes
   you-have-cooldown: "&cReclama tu recompensa en:&b {TIME}"
-  the-day-does-not-correspond: "&c¡No puedes reclamar esta recompensa, ya que no es el día correspondiente!"
+  # Usa esta llave {DAY} para saber el día correspondiente
+  the-day-does-not-correspond: "&c¡No puede reclamar esta recompensa, ya que solo se puede abrir el &b{DAY}&c!"
   inventory-full: "&c¡Tu inventario está demasiado lleno para recibir tu recompensa! Espacio libre."
   reward-received: "&a¡Has recibido tu recompensa con éxito!"
   no-permission: "&c¡No tienes permisos para este comando!"

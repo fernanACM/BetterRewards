@@ -40,4 +40,14 @@ abstract class InventoryManager{
      * @return int
      */
     abstract public static function getNumContents(): int;
+
+    /**
+     * @return void
+     */
+    abstract public static function saveInventory(): void;
+
+    /**
+     * @return void
+     */
+    abstract public static function loadInventory(): void;
 }

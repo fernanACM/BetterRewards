@@ -14,12 +14,10 @@ namespace fernanACM\BetterRewards\utils;
 
 use pocketmine\player\Player;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
+use fernanACM\BetterRewards\provider\ProviderManager;
 
-class CooldownUtils {
-
-    /** @var array<string, array{timestamp: int, duration: int}> */
-    private static $cooldowns = [];
+class CooldownUtils{
 
     /**
      * @param Player $player
@@ -27,11 +25,8 @@ class CooldownUtils {
      * @param int $duration
      */
     public static function addCooldown(Player $player, string $id, int $duration): void{
-        self::$cooldowns[$player->getName()][$id] = [
-            "timestamp" => time(),
-            "duration" => $duration
-        ];
-        self::saveCooldownsToFile();
+        $expirationTime = time() + $duration;
+        ProviderManager::getInstance()->addCooldown($player->getName(), $id, $expirationTime);
     }
 
     /**
@@ -39,11 +34,7 @@ class CooldownUtils {
      * @param string $id
      */
     public static function removeCooldown(Player $player, string $id): void{
-        unset(self::$cooldowns[$player->getName()][$id]);
-        if(empty(self::$cooldowns[$player->getName()])){
-            unset(self::$cooldowns[$player->getName()]);
-            self::saveCooldownsToFile();
-        }
+        ProviderManager::getInstance()->removeCooldown($player->getName(), $id);
     }
 
     /**
@@ -52,7 +43,7 @@ class CooldownUtils {
      * @return bool
      */
     public static function hasCooldown(Player $player, string $id): bool{
-        return isset(self::$cooldowns[$player->getName()][$id]);
+        return ProviderManager::getInstance()->hasCooldown($player->getName(), $id);
     }
 
     /**
@@ -61,17 +52,19 @@ class CooldownUtils {
      * @return string|null
      */
     public static function getRemainingTime(Player $player, string $id): ?string{
-        $config = Loader::getInstance()->getConfig();
-    
+        $config = Loader::getInstance()->config;
         if(!self::hasCooldown($player, $id)){
             return null;
         }
     
-        $cooldownData = self::$cooldowns[$player->getName()][$id];
-        $cooldownEnd = $cooldownData["timestamp"] + $cooldownData["duration"];
+        $cooldownData = ProviderManager::getInstance()->getCooldownData($player->getName(), $id);
+        if(is_null($cooldownData)){
+            return null;
+        }
     
-        $secondsLeft = $cooldownEnd - time();
-        if ($secondsLeft <= 0) {
+        $expiration = $cooldownData["expiration"];
+        $secondsLeft = $expiration - time();
+        if($secondsLeft <= 0){
             self::removeCooldown($player, $id);
             return null;
         }
@@ -108,19 +101,6 @@ class CooldownUtils {
             $output .= $time." ";
         }
         return trim($output);
-    }    
-
-    /**
-     * @param Player $player
-     * @param string $id
-     * @return void
-     */
-    public static function startCooldown(Player $player, string $id): void{
-        self::$cooldowns[$player->getName()][$id] = [
-            "timestamp" => time(),
-            "duration" => 0
-       ];
-       self::saveCooldownsToFile();
     }
 
     /**
@@ -133,24 +113,4 @@ class CooldownUtils {
             self::removeCooldown($player, $id);
         }
     }
-
-    /**
-     * @return void
-     */
-    public static function saveCooldownsToFile(): void{
-        $cooldownData = json_encode(self::$cooldowns);
-        file_put_contents(Loader::getInstance()->getDataFolder() . "cooldowns.json", $cooldownData);
-    }
-
-    /**
-     * @return void
-     */
-    public static function loadCooldownsFromFile(): void{
-        $fileData = file_get_contents(Loader::getInstance()->getDataFolder() . "cooldowns.json");
-        $cooldownData = json_decode($fileData, true);
-        if(is_array($cooldownData)){
-            self::$cooldowns = $cooldownData;
-        }
-    }
 }
-

@@ -32,10 +32,11 @@ use DaPigGuy\libPiggyUpdateChecker\libPiggyUpdateChecker;
 use fernanACM\BetterRewards\commands\RewardCommand;
 
 use fernanACM\BetterRewards\manager\BackupManager;
-use fernanACM\BetterRewards\utils\CooldownUtils;
+use fernanACM\BetterRewards\provider\ProviderManager;
+
 use fernanACM\BetterRewards\utils\PluginUtils;
 
-class Loader extends PluginBase{
+class BetterRewards extends PluginBase{
 
     /** @var Config $config */
     public Config $config;
@@ -43,15 +44,15 @@ class Loader extends PluginBase{
     /** @var Config $messages */
     public Config $messages;
 
-    /** @var Loader $instance */
-    public static Loader $instance;
+    /** @var BetterRewards $instance */
+    private static BetterRewards $instance;
 
     # CheckConfig
-    public const CONFIG_VERSION = "1.0.0";
-    public const LANGUAGE_VERSION = "1.0.0";
+    private const CONFIG_VERSION = "2.0.0";
+    private const LANGUAGE_VERSION = "2.0.0";
 
     # MultiLanguages
-    public const LANGUAGES = [
+    private const LANGUAGES = [
         "eng", // English
         "spa", // Spanish
         "ger", // German
@@ -66,17 +67,17 @@ class Loader extends PluginBase{
      */
     public function onLoad(): void{
         self::$instance = $this;
+        $this->loadFiles();
     }
 
     /**
      * @return void
      */
     public function onEnable(): void{
-        $this->loadFiles();
         $this->loadCheck();
         $this->loadVirions();
         $this->loadCommands();
-        CooldownUtils::loadCooldownsFromFile();
+        $this->getProvider()->loadProvider();
         BackupManager::loadInventoryAll();
     }
 
@@ -84,17 +85,18 @@ class Loader extends PluginBase{
      * @return void
      */
     public function onDisable(): void{
-        CooldownUtils::saveCooldownsToFile();
         BackupManager::saveInventoryAll();
+        $this->getProvider()->unloadProvider();
     }
 
     /**
      * @return void
      */
-    public function loadFiles(): void{
+    private function loadFiles(): void{
         # Config files
         @mkdir($this->getDataFolder() . "languages");
         @mkdir($this->getDataFolder() . "backup");
+        @mkdir($this->getDataFolder() . "database");
         $this->saveResource("config.yml");
         $this->config = new Config($this->getDataFolder() . "config.yml");
         # Languages
@@ -102,17 +104,12 @@ class Loader extends PluginBase{
             $this->saveResource("languages/" . $language . ".yml");
         }
         $this->messages = new Config($this->getDataFolder() . "languages/" . $this->config->get("language") . ".yml");
-        # Cooldown
-        if(!file_exists($this->getDataFolder() . "cooldowns.json")){
-            $data = [];
-            file_put_contents($this->getDataFolder() . "cooldowns.json", json_encode($data));
-        }
     }
 
     /**
      * @return void
      */
-    public function loadCheck(): void{
+    private function loadCheck(): void{
         # CONFIG
         if((!$this->config->exists("config-version")) || ($this->config->get("config-version") != self::CONFIG_VERSION)){
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");
@@ -135,14 +132,14 @@ class Loader extends PluginBase{
     /**
      * @return void
      */
-    public function loadCommands(): void{
+    private function loadCommands(): void{
         Server::getInstance()->getCommandMap()->register("betterrewards", new RewardCommand());
     }
 
     /**
      * @return void
      */
-    public function loadVirions(): void{
+    private function loadVirions(): void{
         foreach([
             "FormsUI" => FormsUI::class,
             "InvMenu" => InvMenu::class,
@@ -170,10 +167,17 @@ class Loader extends PluginBase{
     }
 
     /**
-     * @return Loader
+     * @return BetterRewards
      */
-    public static function getInstance(): Loader{
+    public static function getInstance(): BetterRewards{
         return self::$instance;
+    }
+
+    /**
+     * @return ProviderManager
+     */
+    public function getProvider(): ProviderManager{
+        return ProviderManager::getInstance();
     }
 
     /**

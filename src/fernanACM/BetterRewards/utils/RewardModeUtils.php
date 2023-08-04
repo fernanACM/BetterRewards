@@ -14,7 +14,7 @@ namespace fernanACM\BetterRewards\utils;
 
 use pocketmine\player\Player;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 
 use fernanACM\BetterRewards\utils\CooldownUtils;
 use fernanACM\BetterRewards\utils\PluginUtils;

@@ -25,27 +25,27 @@ class BackupManager{
      * @return void
      */
     public static function saveInventoryAll(): void{
-        MondayInventoryManager::saveMondayInventory();
-        TuesdayInventoryManager::saveTuesdayInventory();
-        WednesdayInventoryManager::saveWednesdayInventory();
-        ThursdayInventoryManager::saveThursdayInventory();
-        FridayInventoryManager::saveFridayInventory();
-        SaturdayInventoryManager::saveSaturdayInventory();
-        SundayInventoryManager::saveSundayInventory();
-        MonthlyInventoryManager::saveMonthlyInventory();
+        MondayInventoryManager::saveInventory();
+        TuesdayInventoryManager::saveInventory();
+        WednesdayInventoryManager::saveInventory();
+        ThursdayInventoryManager::saveInventory();
+        FridayInventoryManager::saveInventory();
+        SaturdayInventoryManager::saveInventory();
+        SundayInventoryManager::saveInventory();
+        MonthlyInventoryManager::saveInventory();
     }
 
     /**
      * @return void
      */
     public static function loadInventoryAll(): void{
-        MondayInventoryManager::loadMondayInventory();
-        TuesdayInventoryManager::loadTuesdayInventory();
-        WednesdayInventoryManager::loadWednesdayInventory();
-        ThursdayInventoryManager::loadThursdayInventory();
-        FridayInventoryManager::loadFridayInventory();
-        SaturdayInventoryManager::loadSaturdayInventory();
-        SundayInventoryManager::loadSundayInventory();
-        MonthlyInventoryManager::loadMonthlyInventory();
+        MondayInventoryManager::loadInventory();
+        TuesdayInventoryManager::loadInventory();
+        WednesdayInventoryManager::loadInventory();
+        ThursdayInventoryManager::loadInventory();
+        FridayInventoryManager::loadInventory();
+        SaturdayInventoryManager::loadInventory();
+        SundayInventoryManager::loadInventory();
+        MonthlyInventoryManager::loadInventory();
     }
 }

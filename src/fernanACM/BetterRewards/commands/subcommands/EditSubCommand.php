@@ -26,7 +26,7 @@ use fernanACM\BetterRewards\manager\types\ThursdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\TuesdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\WednesdayInventoryManager;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 use fernanACM\BetterRewards\utils\PluginUtils;
 
 class EditSubCommand extends BaseSubCommand{

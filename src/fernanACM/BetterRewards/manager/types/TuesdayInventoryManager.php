@@ -14,16 +14,20 @@ use pocketmine\player\Player;
 
 use pocketmine\utils\Config;
 
-use pocketmine\item\Item;
 use pocketmine\inventory\Inventory;
 
 use muqsit\invmenu\InvMenu;
 use muqsit\invmenu\type\InvMenuTypeIds;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 use fernanACM\BetterRewards\manager\InventoryManager;
 
+use fernanACM\BetterRewards\utils\ItemUtils;
+use fernanACM\BetterRewards\utils\PluginUtils;
+
 class TuesdayInventoryManager extends InventoryManager{
+
+    private const JSON = "backup/tuesdayInv.json";
 
     /** @var array $menu */
     private static array $menu = [];
@@ -46,6 +50,9 @@ class TuesdayInventoryManager extends InventoryManager{
         self::$menu = $content;
     }
 
+    /**
+     * @return array
+     */
     public static function getContents(): array{
         $menu = [];
         foreach(self::$menu as $content => $item){
@@ -90,8 +97,9 @@ class TuesdayInventoryManager extends InventoryManager{
             }
             self::setContents($content);
             // backup
-            self::saveTuesdayInventory();
+            self::saveInventory();
             $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.inventory-saved-successfully"));
+            PluginUtils::PlaySound($player, "random.levelup", 1, 2.1);
         });
         $menu->send($player);
     }
@@ -99,13 +107,13 @@ class TuesdayInventoryManager extends InventoryManager{
     /**
      * @return void
      */
-    public static function saveTuesdayInventory(): void{
-        $backup = new Config(Loader::getInstance()->getDataFolder(). "backup/tuesdayInv.json");
+    public static function saveInventory(): void{
+        $backup = new Config(Loader::getInstance()->getDataFolder(). self::JSON);
         $menu = TuesdayInventoryManager::getContents();
         $place = [];
         foreach($menu as $content => $item){
             $place[$content]["slot"] = $content;
-            $place[$content]["item"] = $item->jsonSerialize();
+            $place[$content]["item"] = ItemUtils::encodeItem($item);
         }
         $backup->setAll($place);
         $backup->save();
@@ -114,11 +122,11 @@ class TuesdayInventoryManager extends InventoryManager{
     /**
      * @return void
      */
-    public static function loadTuesdayInventory(): void{
-        $inv = new Config(Loader::getInstance()->getDataFolder(). "backup/tuesdayInv.json");
+    public static function loadInventory(): void{
+        $inv = new Config(Loader::getInstance()->getDataFolder(). self::JSON);
         $contents = [];
         foreach($inv->getAll() as $content){
-            $item = Item::jsonDeserialize($content["item"]);
+            $item = ItemUtils::decodeItem($content["item"]);
             $contents[$content["slot"]] = $item;
         }
         self::setContents($contents);

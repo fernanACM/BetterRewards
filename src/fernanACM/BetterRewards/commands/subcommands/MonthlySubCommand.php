@@ -16,7 +16,7 @@ use pocketmine\command\CommandSender;
 
 use CortexPE\Commando\BaseSubCommand;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 use fernanACM\BetterRewards\forms\RewardForm;
 use fernanACM\BetterRewards\utils\PluginUtils;
 

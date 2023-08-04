@@ -4,10 +4,10 @@
 # | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
 # |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
 #        by fernanAcM
-# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 5.0 servers
 
 # DO NOT TOUCH
-config-version: "1.0.0"
+config-version: "2.0.0"
 
 # Languages
 # "eng", // English
@@ -21,6 +21,23 @@ language: eng
 
 # Prefix plugin
 Prefix: "&l&f[&bBetterRewards&f]&8»&r "
+
+# Providers
+Database:
+  # Available:
+  # - sqlite3
+  # - sqlite
+  # - sql
+  # - mysql
+  # - mysqli
+  type: "sqlite3"
+  # Edit these settings only if you choose "mysql".
+  mysql:
+    host: 127.0.0.1
+    # Avoid using the "root" user for security reasons.
+    username: root
+    password: ""
+    database-name: BetterRewards_DB
 
 # Settings for daily and monthly rewards.
 Reward:
@@ -95,17 +112,18 @@ Reward:
       - item: "1:0"
         count: 16
         name: "&r&cA stone!"
-        lore: []
+        lore:
+          - "&r&bBy:&a fernanACM"
         enchantments:
           - "protection:3"
   monthly-normal-content:
     items:
-      - item: "1:0"
+      - item: "stone"
         count: 16
         name: "&r&aA stone!"
         lore: []
         enchantments:
-          - "protection:3"
+          - "protection:1"
 
 Settings:
   inventory:
@@ -121,6 +139,7 @@ Settings:
     # items that are in the custom inventory.
 
     # You can put /betterrewards count <inventory type>
+    # weekly
     monday-items-to-receive: 4
     tuesday-items-to-receive: 2
     wednesday-items-to-receive: 4
@@ -128,9 +147,9 @@ Settings:
     friday-items-to-receive: 1
     saturday-items-to-receive: 6
     sunday-items-to-receive: 5
-
+    # monthly
     monthly-items-to-receive: 5
-
+# TimeMode
 TimeMode:
   years: "{YEAR} year(s)"
   months: "{MONTH} month(s)"
@@ -138,3 +157,12 @@ TimeMode:
   hours: "{HOUR} hour(s)"
   minutes: "{MINUTE} minute(s)"
   seconds: "{SECOND} second(s)"
+# Change the name of day
+Days:
+  monday: Monday
+  tuesday: Tuesday
+  wednesday: Wednesday
+  thursday: Thursday
+  friday: Friday
+  saturday: Saturday
+  sunday: Sunday

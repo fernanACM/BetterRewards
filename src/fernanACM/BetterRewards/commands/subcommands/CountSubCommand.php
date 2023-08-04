@@ -26,7 +26,7 @@ use fernanACM\BetterRewards\manager\types\ThursdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\TuesdayInventoryManager;
 use fernanACM\BetterRewards\manager\types\WednesdayInventoryManager;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 use fernanACM\BetterRewards\utils\PluginUtils;
 
 class CountSubCommand extends BaseSubCommand{
@@ -79,7 +79,7 @@ class CountSubCommand extends BaseSubCommand{
         if(!$this->isAvailable($args["type"])){
             $sender->sendMessage(Loader::Prefix(). "§cThe mode§b ".$args["type"]." §cit's not valid.");
             $sender->sendMessage("§l§9List of valid modes:");
-            foreach(self::getModos() as $modes){
+            foreach(self::getModes() as $modes){
                 $sender->sendMessage(" - §a" . $modes);
                 PluginUtils::PlaySound($sender, "random.pop2", 1, 1.5);
             }
@@ -148,7 +148,7 @@ class CountSubCommand extends BaseSubCommand{
     /**
      * @return array
      */
-    public static function getModos(): array{
+    public static function getModes(): array{
         return [self::MONDAY, self::TUESDAY, self::WEDNESDAY, 
         self::THURSDAY, self::FRIDAY, self::SATURDAY, self::SUNDAY, self::MONTHLY];
     }
@@ -158,7 +158,7 @@ class CountSubCommand extends BaseSubCommand{
      * @return bool
      */
     public static function isAvailable(string $mode): bool{
-		$modes = self::getModos();
+		$modes = self::getModes();
 		if(in_array($mode, $modes)){
 			return true;
 		}

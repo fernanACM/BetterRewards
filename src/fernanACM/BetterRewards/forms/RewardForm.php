@@ -10,16 +10,16 @@
 
 namespace fernanACM\BetterRewards\forms;
 
-use DateTime;
 use pocketmine\player\Player;
 
 use Vecnavium\FormsUI\SimpleForm;
 
-use fernanACM\BetterRewards\Loader;
+use fernanACM\BetterRewards\BetterRewards as Loader;
 
 use fernanACM\BetterRewards\utils\CooldownUtils;
 use fernanACM\BetterRewards\utils\PluginUtils;
 use fernanACM\BetterRewards\utils\RewardModeUtils;
+use fernanACM\BetterRewards\utils\RewardUtils;
 
 class RewardForm{
 
@@ -38,29 +38,50 @@ class RewardForm{
      * @param Player $player
      * @return void
      */
-    public static function getRewardDiary(Player $player): void{
-        $now = new DateTime();
-        $dayOfWeek = $now->format("l");
-        $config = Loader::getInstance()->config;
-        $form = new SimpleForm(function(Player $player, $data) use($dayOfWeek, $config){
+    public static function getRewardsForm(Player $player): void{
+        $form = new SimpleForm(function(Player $player, $data){
             if($data === null){
+                return true;
+            }
+            switch($data){
+                case 0: // Diary
+                    RewardForm::getRewardDiary($player);
+                    PluginUtils::PlaySound($player, "random.pop", 1, 5.5);
+                break;
+
+                case 1: // Monthly
+                    RewardForm::getRewardMonthly($player);
+                    PluginUtils::PlaySound($player, "random.pop", 1, 5.5);
+                break;
+
+                case 2:
+                    PluginUtils::PlaySound($player, "random.pop2", 1, 2.8);
+                break;
+            }
+        });
+        $form->setTitle(Loader::getMessage($player, "RewardForm.General.title"));
+        $form->setContent(Loader::getMessage($player, "RewardForm.General.content"));
+        $form->addButton(Loader::getMessage($player, "RewardForm.General.button-diary"),1,"https://i.imgur.com/asijTJl.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.General.button-monthly"),1,"https://i.imgur.com/E86x54W.png");
+        $form->addButton(Loader::getMessage($player, "RewardForm.General.button-close"),0,"textures/ui/cancel");
+        $player->sendForm($form);
+    }
+
+    /**
+     * @param Player $player
+     * @return void
+     */
+    public static function getRewardDiary(Player $player): void{
+        $form = new SimpleForm(function(Player $player, $data){
+            if(is_null($data)){
                 return true;
             }
             switch($data){
                 case 0: // Monday
                     $allowedDays = ["Monday"];
-                    $day = $config->getNested("Days.monday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::MONDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::MONDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::MONDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::MONDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendMondayInventoryCustom($player);
@@ -68,18 +89,9 @@ class RewardForm{
 
                 case 1: // Tuesday
                     $allowedDays = ["Tuesday"];
-                    $day = $config->getNested("Days.tuesday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::TUESDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::TUESDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::TUESDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::TUESDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendTuesdayInventoryCustom($player);
@@ -87,18 +99,9 @@ class RewardForm{
 
                 case 2: // Wednesday
                     $allowedDays = ["Wednesday"];
-                    $day = $config->getNested("Days.wednesday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::WEDNESDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::WEDNESDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::WEDNESDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::WEDNESDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendWednesdayInventoryCustom($player);
@@ -106,18 +109,9 @@ class RewardForm{
 
                 case 3: // Thursday
                     $allowedDays = ["Thursday"];
-                    $day = $config->getNested("Days.thursday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::THURSDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::THURSDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::THURSDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::THURSDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendThursdayInventoryCustom($player);
@@ -125,18 +119,9 @@ class RewardForm{
 
                 case 4: // Friday
                     $allowedDays = ["Friday"];
-                    $day = $config->getNested("Days.friday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::FRIDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::FRIDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::FRIDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::FRIDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendFridayInventoryCustom($player);
@@ -144,18 +129,9 @@ class RewardForm{
 
                 case 5: // Saturday
                     $allowedDays = ["Saturday"];
-                    $day = $config->getNested("Days.saturday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::SATURDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::SATURDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::SATURDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::SATURDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendSaturdayInventoryCustom($player);
@@ -163,18 +139,9 @@ class RewardForm{
 
                 case 6: // Sunday
                     $allowedDays = ["Sunday"];
-                    $day = $config->getNested("Days.sunday");
-                    if(!in_array($dayOfWeek, $allowedDays)){
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{DAY}"], [$day], Loader::getMessage($player, "Messages.the-day-does-not-correspond")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
-                    }
-                      // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::SUNDAY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::SUNDAY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                    $day = strtolower(self::SUNDAY);
+                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::SUNDAY)){
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendSundayInventoryCustom($player);
@@ -204,17 +171,17 @@ class RewardForm{
      */
     public static function getRewardMonthly(Player $player): void{
         $form = new SimpleForm(function(Player $player, $data){
-            if($data === null){
+            if(is_null($data)){
                 return true;
             }
             switch($data){
                 case 0: // Reward
                     // Cooldown
                     if(CooldownUtils::hasCooldown($player, self::MONTHLY)){
-                        $cooldoown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldoown], Loader::getMessage($player, "Messages.you-have-cooldown")));
+                        $cooldown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
+                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldown], Loader::getMessage($player, "Messages.you-have-cooldown")));
                         PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return true;
+                        return;
                     }
                     // Receive reward
                     RewardModeUtils::sendMonthlyInventoryCustom($player);
