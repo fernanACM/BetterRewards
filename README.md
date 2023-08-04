@@ -4,7 +4,7 @@
 
 [![](https://poggit.pmmp.io/shield.api/BetterRewards)](https://poggit.pmmp.io/p/BetterRewards)
 
-Daily and monthly rewards, depending on the day of the week. With these rewards you can make your server one of the most fun. Available for PocketMine-MP 4.0 servers
+Daily and monthly rewards, depending on the day of the week. With these rewards you can make your server one of the most fun. Available for PocketMine-MP 5.0 servers
 
 ![Captura de pantalla 2023-04-28 161916](https://user-images.githubusercontent.com/83558341/235257406-d5797344-884e-4d26-a71c-26d19adcc605.png)
 <a href="https://discord.gg/YyE9XFckqb"><img src="https://img.shields.io/discord/837701868649709568?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
@@ -28,11 +28,13 @@ Daily and monthly rewards, depending on the day of the week. With these rewards 
 > Here you can edit the inventory of the objects to receive. It will only work when the ```custom-inventory``` option is ```true```.
 <img src="https://user-images.githubusercontent.com/83558341/235258138-f1711b7c-9a96-4913-b5b7-092a375b49f3.png">
 
-
+### 🌍 Wiki
+* Check our plugin [wiki](https://github.com/fernanACM/BetterRewards/wiki) for features and secrets in the...
 
 ### 💡 Implementations
 * [X] Multilanguage
-* [X] Configuration.
+* [X] Configuration
+* [X] Database provider
 * [X] Cooldown
 * [X] Commands
 * [X] inventory editor
@@ -46,10 +48,10 @@ Daily and monthly rewards, depending on the day of the week. With these rewards 
 # | |_) | |  __/ | |_  | |_  |  __/ | |    |  _ <  |  __/  \ V  V /  | (_| | | |    | (_| | \__ \
 # |____/   \___|  \__|  \__|  \___| |_|    |_| \_\  \___|   \_/\_/    \__,_| |_|     \__,_| |___/
 #        by fernanAcM
-# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 4.0 servers
+# Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 5.0 servers
 
 # DO NOT TOUCH
-config-version: "1.0.0"
+config-version: "2.0.0"
 
 # Languages
 # "eng", // English
@@ -63,6 +65,23 @@ language: eng
 
 # Prefix plugin
 Prefix: "&l&f[&bBetterRewards&f]&8»&r "
+
+# Providers
+Database:
+  # Available:
+  # - sqlite3
+  # - sqlite
+  # - sql
+  # - mysql
+  # - mysqli
+  type: "sqlite3"
+  # Edit these settings only if you choose "mysql".
+  mysql:
+    host: 127.0.0.1
+    # Avoid using the "root" user for security reasons.
+    username: root
+    password: ""
+    database-name: BetterRewards_DB
 
 # Settings for daily and monthly rewards.
 Reward:
@@ -137,17 +156,18 @@ Reward:
       - item: "1:0"
         count: 16
         name: "&r&cA stone!"
-        lore: []
+        lore:
+          - "&r&bBy:&a fernanACM"
         enchantments:
           - "protection:3"
   monthly-normal-content:
     items:
-      - item: "1:0"
+      - item: "stone"
         count: 16
         name: "&r&aA stone!"
         lore: []
         enchantments:
-          - "protection:3"
+          - "protection:1"
 
 Settings:
   inventory:
@@ -163,6 +183,7 @@ Settings:
     # items that are in the custom inventory.
 
     # You can put /betterrewards count <inventory type>
+    # weekly
     monday-items-to-receive: 4
     tuesday-items-to-receive: 2
     wednesday-items-to-receive: 4
@@ -170,9 +191,9 @@ Settings:
     friday-items-to-receive: 1
     saturday-items-to-receive: 6
     sunday-items-to-receive: 5
-
+    # monthly
     monthly-items-to-receive: 5
-
+# TimeMode
 TimeMode:
   years: "{YEAR} year(s)"
   months: "{MONTH} month(s)"
@@ -180,6 +201,15 @@ TimeMode:
   hours: "{HOUR} hour(s)"
   minutes: "{MINUTE} minute(s)"
   seconds: "{SECOND} second(s)"
+# Change the name of day
+Days:
+  monday: Monday
+  tuesday: Tuesday
+  wednesday: Wednesday
+  thursday: Thursday
+  friday: Friday
+  saturday: Saturday
+  sunday: Sunday
 ```
 
 ### 🦴 Item in config.yml
@@ -239,6 +269,9 @@ weekly-normal-content:
 | French | BetterRewards |
 | Portuguese | BetterRewards |
 | Vietnamese | [NhanAZ](https://github.com/NhanAZ) |
+
+### 📢 Report bug
+* If you find any bugs in this plugin, please let me know via: [issues](https://github.com/fernanACM/BetterRewards/issues)
 
 ### 📞 Contact 
 | Redes | Tag | Link |
