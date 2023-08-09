@@ -51,7 +51,7 @@ Daily and monthly rewards, depending on the day of the week. With these rewards 
 # Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 5.0 servers
 
 # DO NOT TOUCH
-config-version: "2.0.0"
+config-version: "2.0.1"
 
 # Languages
 # "eng", // English
@@ -293,4 +293,5 @@ weekly-normal-content:
 | Muqsit | [Muqsit](https://github.com/Muqsit) | [SimplePacketHandler](https://github.com/Muqsit/SimplePacketHandler) |
 | Muqsit | [Muqsit](https://github.com/Muqsit) | [InvMenu](https://github.com/Muqsit/InvMenu) |
 | DaPigGuy | [DaPigGuy](https://github.com/DaPigGuy) | [libPiggyUpdateChecker](https://github.com/DaPigGuy/libPiggyUpdateChecker) |
+| Poggit | [Poggit](https://github.com/poggit) | [libasynql](https://github.com/poggit/libasynql) |
 | [jacob3105](https://github.com/jacob3105) | Thanks for your help in the libasynql implementation | |
