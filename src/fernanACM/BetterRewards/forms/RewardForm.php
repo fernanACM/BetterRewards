@@ -41,7 +41,7 @@ class RewardForm{
     public static function getRewardsForm(Player $player): void{
         $form = new SimpleForm(function(Player $player, $data){
             if($data === null){
-                return true;
+                return;
             }
             switch($data){
                 case 0: // Diary
@@ -74,77 +74,91 @@ class RewardForm{
     public static function getRewardDiary(Player $player): void{
         $form = new SimpleForm(function(Player $player, $data){
             if(is_null($data)){
-                return true;
+                return;
             }
             switch($data){
                 case 0: // Monday
                     $allowedDays = ["Monday"];
                     $day = strtolower(self::MONDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::MONDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendMondayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::MONDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendMondayInventoryCustom($player);
+                    });
                 break;
 
                 case 1: // Tuesday
                     $allowedDays = ["Tuesday"];
                     $day = strtolower(self::TUESDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::TUESDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendTuesdayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::TUESDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendTuesdayInventoryCustom($player);
+                    });
                 break;
 
                 case 2: // Wednesday
                     $allowedDays = ["Wednesday"];
                     $day = strtolower(self::WEDNESDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::WEDNESDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendWednesdayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::WEDNESDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendWednesdayInventoryCustom($player);
+                    });
                 break;
 
                 case 3: // Thursday
                     $allowedDays = ["Thursday"];
                     $day = strtolower(self::THURSDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::THURSDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendThursdayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::THURSDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendThursdayInventoryCustom($player);
+                    });
                 break;
 
                 case 4: // Friday
                     $allowedDays = ["Friday"];
                     $day = strtolower(self::FRIDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::FRIDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendFridayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::FRIDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendFridayInventoryCustom($player);
+                    });
                 break;
 
                 case 5: // Saturday
                     $allowedDays = ["Saturday"];
                     $day = strtolower(self::SATURDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::SATURDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendSaturdayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::SATURDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendSaturdayInventoryCustom($player);
+                    });
                 break;
 
                 case 6: // Sunday
                     $allowedDays = ["Sunday"];
                     $day = strtolower(self::SUNDAY);
-                    if(RewardUtils::getChecker($player, $allowedDays, $day, self::SUNDAY)){
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendSundayInventoryCustom($player);
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::SUNDAY, function (bool $result) use ($player): void {
+                        if($result){
+                            return;
+                        }
+                        // Receive reward
+                        RewardModeUtils::sendSundayInventoryCustom($player);
+                    });
                 break;
 
                 case 7: // close
@@ -172,19 +186,21 @@ class RewardForm{
     public static function getRewardMonthly(Player $player): void{
         $form = new SimpleForm(function(Player $player, $data){
             if(is_null($data)){
-                return true;
+                return;
             }
             switch($data){
                 case 0: // Reward
                     // Cooldown
-                    if(CooldownUtils::hasCooldown($player, self::MONTHLY)){
-                        $cooldown = CooldownUtils::getRemainingTime($player, self::MONTHLY);
-                        $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldown], Loader::getMessage($player, "Messages.you-have-cooldown")));
-                        PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
-                        return;
-                    }
-                    // Receive reward
-                    RewardModeUtils::sendMonthlyInventoryCustom($player);
+                    CooldownUtils::hasCooldown($player, self::MONTHLY, function (bool $result) use ($player): void {
+                        if ($result) {
+                             CooldownUtils::getRemainingTime($player, self::MONTHLY, function (string $cooldown) use ($player): void {
+                                 $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$cooldown], Loader::getMessage($player, "Messages.you-have-cooldown")));
+                             });
+                        } else {
+                            // Receive reward
+                            RewardModeUtils::sendMonthlyInventoryCustom($player);
+                        }
+                    });
                 break;
 
                 case 1: // close

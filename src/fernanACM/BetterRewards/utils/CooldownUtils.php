@@ -37,70 +37,48 @@ class CooldownUtils{
         ProviderManager::getInstance()->removeCooldown($player->getName(), $id);
     }
 
-    /**
-     * @param Player $player
-     * @param string $id
-     * @return bool
-     */
-    public static function hasCooldown(Player $player, string $id): bool{
-        return ProviderManager::getInstance()->hasCooldown($player->getName(), $id);
+    public static function hasCooldown(Player $player, string $id, callable $callback): void{
+        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($callback): void {
+            $callback(count($cooldownData) > 0);
+        });
     }
 
     /**
-     * @param Player $player
-     * @param string $id
-     * @return string|null
+     * @param Player   $player
+     * @param string   $id
+     * @param callable $callable
+     * @return void
      */
-    public static function getRemainingTime(Player $player, string $id): ?string{
+    public static function getRemainingTime(Player $player, string $id, callable $callable): void{
         $config = Loader::getInstance()->config;
-        if(!self::hasCooldown($player, $id)){
-            return null;
-        }
-    
-        $cooldownData = ProviderManager::getInstance()->getCooldownData($player->getName(), $id);
-        if(is_null($cooldownData)){
-            return null;
-        }
-    
-        $expiration = $cooldownData["expiration"];
-        $secondsLeft = $expiration - time();
-        if($secondsLeft <= 0){
-            self::removeCooldown($player, $id);
-            return null;
-        }
-    
-        $years = floor($secondsLeft / (365*24*60*60));
-        $months = floor($secondsLeft / (30*24*60*60));
-        $days = floor(($secondsLeft - $months*30*24*60*60) / (24*60*60));
-        $hours = floor(($secondsLeft - $months*30*24*60*60 - $days*24*60*60) / (60*60));
-        $minutes = floor(($secondsLeft - $months*30*24*60*60 - $days*24*60*60 - $hours*60*60) / 60);
-        $seconds = $secondsLeft - $months*30*24*60*60 - $days*24*60*60 - $hours*60*60 - $minutes*60;
-        $output = "";
-        if($years > 0){
-            $time = str_replace(["{YEAR}"], [$years], $config->getNested("TimeMode.years"));
-            $output .= $time." ";
-        }
-        if($months > 0){
-            $time = str_replace(["{MONTH}"], [$months], $config->getNested("TimeMode.months"));
-            $output .= $time." ";
-        }
-        if($days > 0){
-            $time = str_replace(["{DAY}"], [$days], $config->getNested("TimeMode.days"));
-            $output .= $time." ";
-        }
-        if($hours > 0){
-            $time = str_replace(["{HOUR}"], [$hours], $config->getNested("TimeMode.hours"));
-            $output .= $time." ";
-        }
-        if($minutes > 0) {
-            $time = str_replace(["{MINUTE}"], [$minutes], $config->getNested("TimeMode.minutes"));
-            $output .= $time." ";
-        }
-        if($seconds > 0){
-            $time = str_replace(["{SECOND}"], [$seconds], $config->getNested("TimeMode.seconds"));
-            $output .= $time." ";
-        }
-        return trim($output);
+        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownDatas) use ($player, $id, $config, $callable): void {
+            if (empty($cooldownDatas)) {
+                return;
+            }
+
+            foreach ($cooldownDatas as $cooldownData) {
+                $expiration = $cooldownData["expiration"];
+                $secondsLeft = $expiration - time();
+                if($secondsLeft <= 0){
+                    self::removeCooldown($player, $id);
+                    return;
+                }
+
+                $years = floor($secondsLeft / (365*24*60*60));
+                $months = floor($secondsLeft / (30*24*60*60));
+                $days = floor(($secondsLeft - $months*30*24*60*60) / (24*60*60));
+                $hours = floor(($secondsLeft - $months*30*24*60*60 - $days*24*60*60) / (60*60));
+                $minutes = floor(($secondsLeft - $months*30*24*60*60 - $days*24*60*60 - $hours*60*60) / 60);
+                $seconds = $secondsLeft - $months*30*24*60*60 - $days*24*60*60 - $hours*60*60 - $minutes*60;
+                $output = self::formatTimeComponent($years, 'YEAR', $config->getNested("TimeMode.years"));
+                $output .= self::formatTimeComponent($months, 'MONTH', $config->getNested("TimeMode.months"));
+                $output .= self::formatTimeComponent($days, 'DAY', $config->getNested("TimeMode.days"));
+                $output .= self::formatTimeComponent($hours, 'HOUR', $config->getNested("TimeMode.hours"));
+                $output .= self::formatTimeComponent($minutes, 'MINUTE', $config->getNested("TimeMode.minutes"));
+                $output .= self::formatTimeComponent($seconds, 'SECOND', $config->getNested("TimeMode.seconds"));
+                $callable(trim($output));
+            }
+        });
     }
 
     /**
@@ -109,8 +87,18 @@ class CooldownUtils{
      * @return void
      */
     public static function cancelCooldown(Player $player, string $id): void{
-        if(self::hasCooldown($player, $id)){
-            self::removeCooldown($player, $id);
+        ProviderManager::getInstance()->getProvider()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($player, $id): void {
+            if (count($cooldownData) > 0) {
+                self::removeCooldown($player, $id);
+            }
+        });
+    }
+
+    protected static function formatTimeComponent(float $value, string $unit, string $message): string {
+        if ($value > 0) {
+            $time = str_replace("{{$unit}}", strval($value), $message);
+            return "$time ";
         }
+        return '';
     }
 }

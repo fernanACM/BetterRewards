@@ -40,6 +40,6 @@ Messages:
   the-day-does-not-correspond: "&cBạn không thể yêu cầu phần thưởng này, vì chỉ có thể mở vào ngày &b{DAY}&c!"
   inventory-full: "&cTúi đồ của bạn đã quá đầy để nhận phần thưởng! Hãy để chỗ trống."
   reward-received: "&aBạn đã nhận được phần thưởng của mình thành công!"
-  no-permission: "&cBạn không có quyền truy cập vào lệnh này!"
+  no-permission: "&cBạn không có quyền sử dụng lệnh này!"
   custom-inventory-not-activated: "&cBạn không thể sử dụng tùy chọn này vì kho đồ tùy chỉnh đã bị tắt."
   inventory-saved-successfully: "&aNội dung kho đồ của bạn đã được lưu thành công!"

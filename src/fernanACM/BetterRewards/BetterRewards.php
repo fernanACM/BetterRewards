@@ -96,7 +96,7 @@ class BetterRewards extends PluginBase{
         # Config files
         @mkdir($this->getDataFolder() . "languages");
         @mkdir($this->getDataFolder() . "backup");
-        @mkdir($this->getDataFolder() . "database");
+        // @mkdir($this->getDataFolder() . "database");
         $this->saveResource("config.yml");
         $this->config = new Config($this->getDataFolder() . "config.yml");
         # Languages
