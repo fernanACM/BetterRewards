@@ -28,23 +28,11 @@ class ProviderManager{
      */
     public function loadProvider(): void{
         $config = BetterRewards::getInstance()->config;
-        $databaseType = $config->getNested("Database.type");
-        switch(strtolower($databaseType)){
-            case "sqlite":
-            case "sqlite3":
-            case "sql":
-                self::$provider = SQLProvider::getInstance();
-            break;
-
-            case "mysql":
-            case "mysqli":
-                self::$provider = MySQLProvider::getInstance();
-            break;
-
-            default:
-                self::$provider = SQLProvider::getInstance();
-            break;
-        }
+        $databaseType = $config->getNested("database.type");
+        self::$provider = match (strtolower($databaseType)) {
+            "mysql", "mysqli" => MySQLProvider::getInstance(),
+            default => SQLProvider::getInstance()
+        };
         if(!is_null(self::$provider)){
             self::$provider->loadDatabase();
         }
@@ -77,21 +65,13 @@ class ProviderManager{
     }
 
     /**
-     * @param string $playerName
-     * @param string $id
-     * @return boolean
+     * @param string   $playerName
+     * @param string   $id
+     * @param callable $callback
+     * @return void
      */
-    public function hasCooldown(string $playerName, string $id): bool{
-        return self::$provider->hasCooldown($playerName, $id);
-    }
-
-    /**
-     * @param string $playerName
-     * @param string $id
-     * @return array|null
-     */
-    public function getCooldownData(string $playerName, string $id): ?array{
-        return self::$provider->getCooldownData($playerName, $id);
+    public function getCooldownData(string $playerName, string $id, callable $callback): void{
+        self::$provider->getCooldownData($playerName, $id, $callback);
     }
 
     /**
