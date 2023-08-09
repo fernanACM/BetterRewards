@@ -20,6 +20,8 @@ use pocketmine\utils\TextFormat;
 # Libs
 use Vecnavium\FormsUI\FormsUI;
 
+use poggit\libasynql\libasynql;
+
 use muqsit\invmenu\InvMenu;
 use muqsit\invmenu\InvMenuHandler;
 use muqsit\simplepackethandler\SimplePacketHandler;
@@ -48,7 +50,7 @@ class BetterRewards extends PluginBase{
     private static BetterRewards $instance;
 
     # CheckConfig
-    private const CONFIG_VERSION = "2.0.0";
+    private const CONFIG_VERSION = "2.0.1";
     private const LANGUAGE_VERSION = "2.0.0";
 
     # MultiLanguages
@@ -141,6 +143,7 @@ class BetterRewards extends PluginBase{
      */
     private function loadVirions(): void{
         foreach([
+            "libasynql" => libasynql::class,
             "FormsUI" => FormsUI::class,
             "InvMenu" => InvMenu::class,
             "SimplePacketHandler" => SimplePacketHandler::class,

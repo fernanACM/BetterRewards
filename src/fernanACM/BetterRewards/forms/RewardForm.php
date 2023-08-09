@@ -40,7 +40,7 @@ class RewardForm{
      */
     public static function getRewardsForm(Player $player): void{
         $form = new SimpleForm(function(Player $player, $data){
-            if($data === null){
+            if(is_null($data)){
                 return;
             }
             switch($data){
@@ -80,7 +80,7 @@ class RewardForm{
                 case 0: // Monday
                     $allowedDays = ["Monday"];
                     $day = strtolower(self::MONDAY);
-                    RewardUtils::getChecker($player, $allowedDays, $day, self::MONDAY, function (bool $result) use ($player): void {
+                    RewardUtils::getChecker($player, $allowedDays, $day, self::MONDAY, function (bool $result) use ($player): void{
                         if($result){
                             return;
                         }

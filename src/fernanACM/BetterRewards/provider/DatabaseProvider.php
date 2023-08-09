@@ -10,9 +10,10 @@
     
 namespace fernanACM\BetterRewards\provider;
 
-use fernanACM\BetterRewards\BetterRewards;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
+
+use fernanACM\BetterRewards\BetterRewards;
 
 abstract class DatabaseProvider{
 
@@ -21,12 +22,13 @@ abstract class DatabaseProvider{
     const REMOVE_COOLDOWN_QUERY = "betterrewards.removecooldown";
     const GET_COOLDOWN_QUERY = "betterrewards.getcooldown";
 
+    /** @var DataConnector $database */
     protected DataConnector $database;
 
     /**
      * @return void
      */
-    public function loadDatabase(): void {
+    public function loadDatabase(): void{
         $betterRewards = BetterRewards::getInstance();
         $config = $betterRewards->config;
         $this->database = libasynql::create($betterRewards, $config->get("database"), [
@@ -34,13 +36,6 @@ abstract class DatabaseProvider{
             "mysql" => "mysql.sql"
         ]);
         $this->database->executeGeneric(self::INIT_QUERY);
-    }
-
-    /**
-     * @return DataConnector
-     */
-    public function getDatabase(): DataConnector {
-        return $this->database;
     }
 
     /**
@@ -57,7 +52,7 @@ abstract class DatabaseProvider{
      * @param integer $expirationTime
      * @return void
      */
-    public function addCooldown(string $playerName, string $id, int $expirationTime): void {
+    public function addCooldown(string $playerName, string $id, int $expirationTime): void{
         $this->database->executeInsert(self::ADD_COOLDOWN_QUERY, [
             "player" => $playerName,
             "cooldown_id" => $id,
@@ -88,5 +83,12 @@ abstract class DatabaseProvider{
             "player" => $playerName,
             "cooldown_id" => $id
         ], $onSelect);
+    }
+
+    /**
+     * @return DataConnector
+     */
+    public function getDatabase(): DataConnector{
+        return $this->database;
     }
 }

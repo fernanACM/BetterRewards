@@ -19,6 +19,9 @@ class MySQLProvider extends DatabaseProvider{
     /** @var MySQLProvider|null $instance */
     private static ?MySQLProvider $instance = null;
 
+    private function __construct(){
+    }
+
     /**
      * @return self
      */

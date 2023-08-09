@@ -7,7 +7,7 @@
 # Daily and monthly rewards, depending on the day of the week. Available for PocketMine-MP 5.0 servers
 
 # DO NOT TOUCH
-config-version: "2.0.0"
+config-version: "2.0.1"
 
 # Languages
 # "eng", // English

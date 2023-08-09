@@ -187,8 +187,8 @@ class RewardUtils{
         }
         CooldownUtils::hasCooldown($player, $cooldownKey, function (bool $result) use ($player, $cooldownKey, $callable){
             $callable($result);
-            if ($result) {
-                 CooldownUtils::getRemainingTime($player, $cooldownKey, function (string $output) use ($player): void {
+            if($result){
+                 CooldownUtils::getRemainingTime($player, $cooldownKey, function (string $output) use ($player): void{
                     $player->sendMessage(Loader::Prefix(). str_replace(["{TIME}"], [$output], Loader::getMessage($player, "Messages.you-have-cooldown")));
                     PluginUtils::PlaySound($player, "mob.villager.no", 1, 1);
                 });
@@ -203,20 +203,20 @@ class RewardUtils{
     protected static function sendReward(mixed $reward): array{
         $itemObject = VanillaItems::AIR();
         $items = [];
-        if (isset($reward["items"])) {
-            foreach ($reward["items"] as $item) {
+        if(isset($reward["items"])){
+            foreach($reward["items"] as $item){
                 $itemObject = StringToItemParser::getInstance()->parse($item["item"]) ?? LegacyStringToItemParser::getInstance()->parse($item["item"]);
                 $itemObject->setCount((int)$item["count"] ?? 1);
-                if (isset($item["name"])) {
+                if(isset($item["name"])){
                     $itemObject->setCustomName(TextFormat::colorize($item['name']));
                 }
-                if (isset($item["lore"])) {
-                    $itemObject->setLore(array_map(function ($lore) {
+                if(isset($item["lore"])){
+                    $itemObject->setLore(array_map(function ($lore){
                         return TextFormat::colorize($lore);
                     }, $item["lore"]));
                 }
-                if (isset($item["enchantments"])) {
-                    foreach ($item["enchantments"] as $enchantmentString) {
+                if(isset($item["enchantments"])){
+                    foreach($item["enchantments"] as $enchantmentString){
                         $enchantExplode = explode(":", $enchantmentString);
                         $enchantId = $enchantExplode[0];
                         $enchantLevel = (int)$enchantExplode[1];

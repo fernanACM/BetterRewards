@@ -29,7 +29,7 @@ class ProviderManager{
     public function loadProvider(): void{
         $config = BetterRewards::getInstance()->config;
         $databaseType = $config->getNested("database.type");
-        self::$provider = match (strtolower($databaseType)) {
+        self::$provider = match (strtolower($databaseType)){
             "mysql", "mysqli" => MySQLProvider::getInstance(),
             default => SQLProvider::getInstance()
         };

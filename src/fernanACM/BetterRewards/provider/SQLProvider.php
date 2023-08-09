@@ -19,6 +19,9 @@ class SQLProvider extends DatabaseProvider{
     /** @var SQLProvider|null $instance */
     private static ?SQLProvider $instance = null;
 
+    private function __construct(){
+    }
+    
     /**
      * @return self
      */

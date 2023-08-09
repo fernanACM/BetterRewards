@@ -37,8 +37,14 @@ class CooldownUtils{
         ProviderManager::getInstance()->removeCooldown($player->getName(), $id);
     }
 
+    /**
+     * @param Player $player
+     * @param string $id
+     * @param callable $callback
+     * @return void
+     */
     public static function hasCooldown(Player $player, string $id, callable $callback): void{
-        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($callback): void {
+        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($callback): void{
             $callback(count($cooldownData) > 0);
         });
     }
@@ -51,12 +57,12 @@ class CooldownUtils{
      */
     public static function getRemainingTime(Player $player, string $id, callable $callable): void{
         $config = Loader::getInstance()->config;
-        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownDatas) use ($player, $id, $config, $callable): void {
-            if (empty($cooldownDatas)) {
+        ProviderManager::getInstance()->getCooldownData($player->getName(), $id, function (array $cooldownDatas) use ($player, $id, $config, $callable): void{
+            if(empty($cooldownDatas)){
                 return;
             }
 
-            foreach ($cooldownDatas as $cooldownData) {
+            foreach($cooldownDatas as $cooldownData){
                 $expiration = $cooldownData["expiration"];
                 $secondsLeft = $expiration - time();
                 if($secondsLeft <= 0){
@@ -87,15 +93,21 @@ class CooldownUtils{
      * @return void
      */
     public static function cancelCooldown(Player $player, string $id): void{
-        ProviderManager::getInstance()->getProvider()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($player, $id): void {
-            if (count($cooldownData) > 0) {
+        ProviderManager::getInstance()->getProvider()->getCooldownData($player->getName(), $id, function (array $cooldownData) use ($player, $id): void{
+            if(count($cooldownData) > 0){
                 self::removeCooldown($player, $id);
             }
         });
     }
 
-    protected static function formatTimeComponent(float $value, string $unit, string $message): string {
-        if ($value > 0) {
+    /**
+     * @param float $value
+     * @param string $unit
+     * @param string $message
+     * @return string
+     */
+    protected static function formatTimeComponent(float $value, string $unit, string $message): string{
+        if($value > 0){
             $time = str_replace("{{$unit}}", strval($value), $message);
             return "$time ";
         }
