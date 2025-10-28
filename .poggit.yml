@@ -11,15 +11,13 @@ projects:
       - src: ACM-PocketMine-MP/FormsUI/FormsUI
         version: ^1.1.4
       - src: ACM-PocketMine-MP/Commando/Commando
-        version: ^3.2.1
+        version: ^4.0.0
         branch: PM5
       - src: muqsit/simplepackethandler/SimplePacketHandler
         version: ^0.1.5
       - src: muqsit/InvMenu/InvMenu
-        version: ^4.6.6
+        version: ^4.7.3
         branch: "pm5"
-      - src: Vecnavium/FormsUI/FormsUI
-        version: ^1.1.3
       - src: ACM-PocketMine-MP/libPiggyUpdateChecker/libPiggyUpdateChecker
         version: ^2.0.0
       - src: poggit/libasynql/libasynql
